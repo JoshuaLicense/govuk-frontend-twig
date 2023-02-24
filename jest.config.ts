@@ -3,6 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
+// eslint-disable-next-line import/no-default-export
 export default {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -31,7 +32,7 @@ export default {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "babel",
+  coverageProvider: 'babel',
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
