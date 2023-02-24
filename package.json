@@ -1,0 +1,22 @@
+{
+  "name": "govuk-frontend-twig",
+  "version": "1.0.0",
+  "description": "GOV.UK Frontend Nunjucks templates converted to Twig",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@jest/types": "^29.4.1",
+    "@types/jest": "^29.4.0",
+    "@types/nunjucks": "^3.2.1",
+    "@types/pascalcase": "^1.0.1",
+    "nunjucks": "^3.2.3",
+    "ts-jest": "^29.0.5",
+    "change-case": "^4.1.2",
+    "govuk-frontend": "^4.5.0",
+    "typescript": "^4.9.5"
+  }
+}
