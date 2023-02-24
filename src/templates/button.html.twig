@@ -1,0 +1,62 @@
+{# Set classes for this component #}
+{%- set classNames = "govuk-button" -%}
+
+{%- if params.classes is defined %}
+  {% set classNames = "#{classNames} #{params.classes}" %}
+{% endif %}
+{% if params.disabled ?? false %}
+  {% set classNames = "#{classNames} govuk-button--disabled" %}
+{% endif -%}
+
+{# Determine type of element to use, if not explicitly set #}
+{%- if params.element is defined %}
+  {% set element = params.element | lower %}
+{% else %}
+  {% if params.href is defined %}
+    {% set element = 'a' %}
+  {% else %}
+    {% set element = 'button' %}
+  {% endif %}
+{% endif -%}
+
+{% if params.isStartButton is defined %}
+  {% set iconHtml %}
+{#- The SVG needs `focusable="false"` so that Internet Explorer does not
+treat it as an interactive element - without this it will be
+'focusable' when using the keyboard to navigate. #}
+<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
+  </svg>
+  {% endset %}
+  {% set classNames = "#{classNames} govuk-button--start" %}
+{% endif %}
+
+{#- Define common attributes that we can use across all element types #}
+
+{%- set commonAttributes %} class="{{ classNames }}" data-module="govuk-button"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}{% endset %}
+
+{#- Define common attributes we can use for both button and input types #}
+
+{%- set buttonAttributes %}{% if params.name is defined %} name="{{ params.name }}"{% endif %}{% if params.disabled ?? false %} disabled="disabled" aria-disabled="true"{% endif %}{% if params.preventDoubleClick ?? false %} data-prevent-double-click="{{params.preventDoubleClick ? 'true' : 'false' }}"{% endif %}{% endset %}
+
+{#- Actually create a button... or a link! #}
+
+{%- if element == 'a' %}
+<a href="{{ params.href is defined ? params.href : '#' }}" role="button" draggable="false" {{- commonAttributes | raw }}>
+  {{ params.html is defined ? params.html | raw : params.text }}
+{% if iconHtml is defined %}
+  {{ iconHtml | trim(side='right') | raw }}
+{%- endif -%}
+</a>
+
+{%- elseif element == 'button' %}
+<button {%- if params.value is defined %} value="{{ params.value }}"{% endif %}{%- if params.type is defined %} type="{{ params.type }}"{% endif %} {{- buttonAttributes | raw }} {{- commonAttributes | raw }}>
+  {{ params.html is defined ? params.html | raw : params.text }}
+{% if iconHtml is defined %}
+  {{ iconHtml | trim(side='right') | raw }}
+{%- endif -%}
+</button>
+
+{%- elseif element == 'input' %}
+<input value="{{ params.text }}" type="{{ params.type ?? 'submit' }}" {{- buttonAttributes | raw }} {{- commonAttributes | raw }}>
+{%- endif %}
