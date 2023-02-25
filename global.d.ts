@@ -1,8 +1,8 @@
-import { type ComponentConfig } from './tests/setup';
+import { type ComponentFixture } from './tests/setup';
 
 declare global {
   declare namespace globalThis {
-    var components: ComponentConfig[];
+    var components: ComponentFixture[];
   }
 }
 

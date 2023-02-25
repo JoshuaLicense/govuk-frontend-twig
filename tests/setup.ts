@@ -1,44 +1,36 @@
-export interface Params {
-  [s: string]: string | boolean | Params;
+import { readdir } from 'fs/promises';
+import path from 'path';
+
+export interface ComponentFixture {
+  component: string,
+  fixtures: {
+    name: string;
+    options: {
+      [key: string]: unknown,
+    }
+  }[],
 }
 
-export interface ComponentConfig {
-  name: string;
-  contexts: Params[];
-}
-
-const getContexts = async (component: string): Promise<Params[]> => {
-  const path = `${__dirname}/contexts/${component}.ts`;
-
-  try {
-    const { contexts } = await import(path) as { contexts: Params[] };
-
-    return contexts;
-  } catch {
-    throw new Error(`No context found for ${component} using path: ${path}.`);
-  }
-};
-
-const getComponents = async (): Promise<ComponentConfig[]> => [
-  {
-    name: 'accordion',
-    contexts: await getContexts('accordion'),
-  },
-  {
-    name: 'back-link',
-    contexts: await getContexts('back-link'),
-  },
-  {
-    name: 'breadcrumbs',
-    contexts: await getContexts('breadcrumbs'),
-  },
-  {
-    name: 'button',
-    contexts: await getContexts('button'),
-  },
+// During development.
+const developedComponents = [
+  'accordion',
+  'back-link',
+  'breadcrumbs',
+  'button',
 ];
+
+const getAllComponents = async () => {
+  const govukPath = `${path.dirname(require.resolve('govuk-frontend'))}/components/`;
+  const govukComponents = (await readdir(govukPath, { withFileTypes: true })).filter((file) => file.isDirectory()).map((directory) => directory.name).filter((component) => developedComponents.includes(component));
+
+  return Promise.all(govukComponents.map(async (component) => {
+    const componentFixturePath = path.resolve(govukPath, component);
+
+    return (await import(`${componentFixturePath}/fixtures.json`)) as ComponentFixture;
+  }));
+};
 
 // eslint-disable-next-line import/no-default-export
 export default async function setup(): Promise<void> {
-  globalThis.components = await getComponents();
+  globalThis.components = await getAllComponents();
 }

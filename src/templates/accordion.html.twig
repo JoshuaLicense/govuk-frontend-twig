@@ -10,7 +10,7 @@
   {%- if params.showSectionAriaLabelText is defined %} data-i18n.show-section-aria-label="{{ params.showSectionAriaLabelText | escape }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
   {% for item in params.items ?? [] %}
-    {% if item is defined %}
+    {% if item %}
       <div class="govuk-accordion__section {%- if item.expanded ?? false %} govuk-accordion__section--expanded{% endif %}">
         <div class="govuk-accordion__section-header">
           <h{{ headingLevel }} class="govuk-accordion__section-heading">
