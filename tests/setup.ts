@@ -17,6 +17,7 @@ const developedComponents = [
   'back-link',
   'breadcrumbs',
   'button',
+  'label',
   'inset-text',
   'cookie-banner',
 ];
