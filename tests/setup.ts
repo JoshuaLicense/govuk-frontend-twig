@@ -21,6 +21,7 @@ const developedComponents = [
   'inset-text',
   'cookie-banner',
   'details',
+  'error-message',
 ];
 
 const getAllComponents = async () => {
