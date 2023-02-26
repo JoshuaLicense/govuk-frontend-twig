@@ -1,0 +1,12 @@
+{% macro govukDetails(params) %}
+<details {%- if params.id is defined and params.id is not null %} id="{{params.id}}"{% endif %} class="govuk-details {%- if params.classes is defined and params.classes is not null %} {{ params.classes }}{% endif %}" data-module="govuk-details" {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %} {{- params.open ?? false ? " open" : "" }}>
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      {{ params.summaryHtml is defined and params.summaryHtml is not null ? params.summaryHtml | raw : params.summaryText }}
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    {{ params.html is defined and params.html is not null ? params.html | raw : params.text }}
+  </div>
+</details>
+{% endmacro %}

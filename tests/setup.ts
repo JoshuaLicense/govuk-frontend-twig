@@ -20,6 +20,7 @@ const developedComponents = [
   'label',
   'inset-text',
   'cookie-banner',
+  'details',
 ];
 
 const getAllComponents = async () => {
