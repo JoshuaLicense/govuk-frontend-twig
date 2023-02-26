@@ -24,6 +24,7 @@ const developedComponents = [
   'error-message',
   'error-summary',
   'fieldset',
+  'header',
 ];
 
 const getAllComponents = async () => {
