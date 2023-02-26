@@ -1,32 +1,38 @@
 <?php
 
 use Twig\Environment;
+use Twig\Loader\ArrayLoader;
+use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
 require_once 'vendor/autoload.php';
 
-// First arg to CLI - template path
-$templatePath = $argv[1];
+$component = $argv[1];
 
-// data is STDIN aka `echo '{"title": "hello there"}' | php index.php '@upone/bar.twig'`
-$in_data = [];
-$in = fgets(STDIN);
-if ($in) {
-  $in_data = json_decode($in, true);
+$stdin = [];
+$stdin = fgets(STDIN);
+if ($stdin) {
+  $stdin = json_decode($stdin, true);
 }
 
-$loader = new FilesystemLoader(dirname(__DIR__) . '/src/templates');
+$macroName = str_replace('-', '', ucwords($component, '-'));;
+
+$filesystemLoader = new FilesystemLoader();
+$filesystemLoader->addPath(dirname(__DIR__) . '/src/templates', 'govuk-frontend-twig');
+
+$arrayLoader = new ArrayLoader([
+  'test' => "{% from '@govuk-frontend-twig/components/" . $component . ".html.twig' import govuk" . $macroName . " %}{{ govuk" . $macroName . "(params) }}"
+]);
+
+$chainLoader = new ChainLoader([$filesystemLoader, $arrayLoader]);
+
 $twig = new Environment(
-  $loader,
+  $chainLoader,
   [
     'strict_variables' => true,
   ]
 );
 
-// Load the template that was first arg to this script
-$template = $twig->load($templatePath);
-
-// Pass data to template and get back HTML
-$html = $template->render(['params' => $in_data]);
+$html = $twig->render('test', ['params' => $stdin]);
 
 echo $html;

@@ -1,3 +1,0 @@
-<a href="{%- if params.href is defined %}{{ params.href }}{% else %}#{% endif -%}" class="govuk-back-link{%- if params.classes is defined %} {{ params.classes }}{% endif -%}"
-{%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>{{ (params.html is defined ? params.html | raw : (params.text is defined ? params.text : 'Back')) -}}
-</a>
