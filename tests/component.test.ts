@@ -6,21 +6,24 @@ import * as changeCase from 'change-case';
 const renderNunjucksComponent = (component: string, context: unknown) => {
   const stringContext = util.inspect(context, { compact: true, breakLength: Number.POSITIVE_INFINITY, depth: Number.POSITIVE_INFINITY });
 
-  nunjucks.configure(
+  const env = nunjucks.configure(
     'node_modules/govuk-frontend/',
     {
       trimBlocks: true,
     },
   );
 
-  return nunjucks.renderString(
+  // Overwrite `indent` filter to avoid whitespace differences in tests.
+  env.addFilter('indent', (str: string) => (str));
+
+  return env.renderString(
     `{% from "govuk/components/${component}/macro.njk" import govuk${changeCase.pascalCase(component)} %}{{ govuk${changeCase.pascalCase(component)}(${stringContext}) }}`,
     {},
   );
 };
 
 const renderTwigComponent = (component: string, context: unknown) => {
-  const { stdout: twigBuffer } = spawnSync('php', [`${__dirname}/renderTwig.php`, `${component}.html.twig`], { input: JSON.stringify(context) });
+  const { stdout: twigBuffer } = spawnSync('php', [`${__dirname}/renderTwig.php`, component], { input: JSON.stringify(context) });
 
   return twigBuffer.toString();
 };
@@ -31,7 +34,7 @@ describe.each(globalThis.components)('Nunjucks output HTML should match Twig out
       const njk = renderNunjucksComponent(componentFixture.component, fixture.options);
       const twig = renderTwigComponent(componentFixture.component, fixture.options);
 
-      expect(njk).toEqual(twig);
+      expect(twig).toEqual(njk);
     });
   });
 });
