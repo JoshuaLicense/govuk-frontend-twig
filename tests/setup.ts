@@ -22,6 +22,7 @@ const developedComponents = [
   'cookie-banner',
   'details',
   'error-message',
+  'error-summary',
 ];
 
 const getAllComponents = async () => {
