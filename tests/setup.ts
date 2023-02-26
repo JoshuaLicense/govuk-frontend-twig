@@ -17,6 +17,7 @@ const developedComponents = [
   'back-link',
   'breadcrumbs',
   'button',
+  'cookie-banner',
 ];
 
 const getAllComponents = async () => {
