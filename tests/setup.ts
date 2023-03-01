@@ -30,6 +30,7 @@ const developedComponents = [
   'file-upload',
   'character-count',
   'textarea',
+  'checkboxes',
 ];
 
 const getAllComponents = async () => {
