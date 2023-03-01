@@ -28,6 +28,7 @@ const developedComponents = [
   'footer',
   'hint',
   'file-upload',
+  'textarea',
 ];
 
 const getAllComponents = async () => {

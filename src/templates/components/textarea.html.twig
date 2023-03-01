@@ -1,11 +1,11 @@
-{% macro govukFileUpload(params) %}
+{% macro govukTextarea(params) %}
 {% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage -%}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 {% from "@govuk-frontend-twig/components/label.html.twig" import govukLabel %}
 
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
-{% set describedBy = params.describedBy | default(null) %}
+{% set describedBy = params.describedBy | default("") %}
 <div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}">
   {{ govukLabel({
     html: params.label.html | default(null),
@@ -14,7 +14,7 @@
     isPageHeading: params.label.isPageHeading | default(null),
     attributes: params.label.attributes | default(null),
     for: params.id | default(null)
-  }) | trim | raw}}
+  }) | trim | raw }}
 {% if params.hint | default(false) %}
   {% set hintId = "#{params.id}-hint" %}
   {% set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" %}
@@ -24,7 +24,7 @@
     attributes: params.hint.attributes | default(null),
     html: params.hint.html | default(null),
     text: params.hint.text | default(null)
-  }) | trim | raw}}
+  }) | trim | raw }}
 {% endif %}
 {% if params.errorMessage | default(false) %}
   {% set errorId = "#{params.id}-error" %}
@@ -38,9 +38,10 @@
     visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
   }) | trim | raw}}
 {% endif %}
-  <input class="govuk-file-upload {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-file-upload--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" type="file"
-  {%- if params.value | default(false) %} value="{{ params.value }}"{% endif %}
+  <textarea class="govuk-textarea {%- if params.errorMessage | default(false) %} govuk-textarea--error{% endif %} {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" id="{{ params.id }}" name="{{ params.name }}" rows="{% if params.rows | default(false) %} {{- params.rows -}} {% else %}5{% endif %}"
+  {%- if params.spellcheck is defined and params.spellcheck is not null %} spellcheck="{{ params.spellcheck ? 'true' : 'false' }}"{% endif %}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+  {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif %}
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>{{ params.value | default() }}</textarea>
 </div>
 {% endmacro %}
