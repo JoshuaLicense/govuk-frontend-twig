@@ -27,6 +27,7 @@ const developedComponents = [
   'header',
   'footer',
   'hint',
+  'file-upload',
 ];
 
 const getAllComponents = async () => {
