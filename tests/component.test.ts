@@ -1,10 +1,10 @@
 import { spawnSync } from 'node:child_process';
-import * as util from 'node:util';
 import nunjucks from 'nunjucks';
 import * as changeCase from 'change-case';
+import { decode } from 'html-entities';
 
 const renderNunjucksComponent = (component: string, context: unknown) => {
-  const stringContext = util.inspect(context, { compact: true, breakLength: Number.POSITIVE_INFINITY, depth: Number.POSITIVE_INFINITY });
+  const stringContext = JSON.stringify(context, undefined, '  ');
 
   const env = nunjucks.configure(
     'node_modules/govuk-frontend/',
@@ -16,16 +16,18 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
   // Overwrite `indent` filter to avoid whitespace differences in tests.
   env.addFilter('indent', (str: string) => (str));
 
-  return env.renderString(
+  const njk = env.renderString(
     `{% from "govuk/components/${component}/macro.njk" import govuk${changeCase.pascalCase(component)} %}{{ govuk${changeCase.pascalCase(component)}(${stringContext}) }}`,
     {},
   );
+
+  return decode(njk);
 };
 
 const renderTwigComponent = (component: string, context: unknown) => {
   const { stdout: twigBuffer } = spawnSync('php', [`${__dirname}/renderTwig.php`, component], { input: JSON.stringify(context) });
 
-  return twigBuffer.toString();
+  return decode(twigBuffer.toString());
 };
 
 describe.each(globalThis.components)('Nunjucks output HTML should match Twig output HTML', (componentFixture) => {
