@@ -28,6 +28,7 @@ const developedComponents = [
   'footer',
   'hint',
   'file-upload',
+  'character-count',
   'textarea',
 ];
 
