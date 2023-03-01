@@ -43,17 +43,17 @@
             GOV.UK
           </span>
         </span>
-        {% if (params.productName is defined) %}
+        {% if params.productName | default(false) %}
         <span class="govuk-header__product-name">
           {{ params.productName }}
         </span>
         {% endif %}
       </a>
     </div>
-    {% if params.serviceName is defined or params.navigation is defined %}
+    {% if params.serviceName | default(false) or params.navigation | default(false) %}
     <div class="govuk-header__content">
-    {% if params.serviceName is defined %}
-    {% if params.serviceUrl is defined %}
+    {% if params.serviceName | default(false) %}
+    {% if params.serviceUrl | default(false) %}
       <a href="{{ params.serviceUrl }}" class="govuk-header__link govuk-header__service-name">
         {{ params.serviceName }}
       </a>
@@ -63,7 +63,7 @@
       </span>
     {% endif %}
     {% endif %}
-    {% if params.navigation is defined %}
+    {% if params.navigation | default(false) %}
     <nav aria-label="{{ params.navigationLabel | default(menuButtonText) }}" class="govuk-header__navigation {{ params.navigationClasses | default() }}">
       <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="{{ params.menuButtonLabel | default('Show or hide menu') }}" hidden>{{ menuButtonText }}</button>
 

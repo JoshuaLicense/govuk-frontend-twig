@@ -1,6 +1,6 @@
 {% macro govukErrorSummary(params) %}
 <div class="govuk-error-summary
-  {%- if params.classes is defined and params.classes is not null %} {{ params.classes }}{% endif %}"
+  {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %} data-module="govuk-error-summary">
   {# Keep the role="alert" in a seperate child container to prevent a race condition between
@@ -8,12 +8,12 @@
 
   <div role="alert">
     <h2 class="govuk-error-summary__title">
-      {{ params.titleHtml is defined and params.titleHtml is not null ? params.titleHtml | raw : params.titleText }}
+      {{ params.titleHtml | default(false) ? params.titleHtml | raw : params.titleText }}
     </h2>
     <div class="govuk-error-summary__body">
-      {% if params.descriptionHtml is defined or params.descriptionText is defined %}
+      {% if params.descriptionHtml | default(false) or params.descriptionText | default(false) %}
         <p>
-          {{ params.descriptionHtml is defined and params.descriptionHtml is not null ? params.descriptionHtml | raw : params.descriptionText }}
+          {{ params.descriptionHtml | default(false) ? params.descriptionHtml | raw : params.descriptionText }}
         </p>
       {% endif %}
       <ul class="govuk-list govuk-error-summary__list">

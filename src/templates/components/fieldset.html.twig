@@ -1,21 +1,21 @@
 {% macro govukFieldset(params) %}
 <fieldset class="govuk-fieldset
-  {%- if params.classes is defined and params.classes is not null %} {{ params.classes }}{% endif %}"
-  {%- if params.role is defined and params.role is not null %} role="{{ params.role }}"{% endif %}
-  {%- if params.describedBy is defined and params.describedBy is not null %} aria-describedby="{{ params.describedBy }}"{% endif %}
+  {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
+  {%- if params.role | default(false) %} role="{{ params.role }}"{% endif %}
+  {%- if params.describedBy | default(false) %} aria-describedby="{{ params.describedBy }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
-  {% if params.legend.html is defined or params.legend.text is defined %}
-  <legend class="govuk-fieldset__legend {%- if params.legend.classes is defined and params.legend.classes is not null %} {{ params.legend.classes }}{% endif %}">
-  {% if params.legend.isPageHeading is defined and params.legend.isPageHeading is not null %}
+  {% if params.legend.html | default(false) or params.legend.text | default(false) %}
+  <legend class="govuk-fieldset__legend {%- if params.legend.classes | default(false) %} {{ params.legend.classes }}{% endif %}">
+  {% if params.legend.isPageHeading | default(false) %}
     <h1 class="govuk-fieldset__heading">
-      {{ params.legend.html is defined and params.legend.html is not null ? params.legend.html | raw : params.legend.text }}
+      {{ params.legend.html | default(false) ? params.legend.html | raw : params.legend.text }}
     </h1>
   {% else %}
-    {{ params.legend.html is defined and params.legend.html is not null ? params.legend.html | raw : params.legend.text }}
+    {{ params.legend.html | default(false) ? params.legend.html | raw : params.legend.text }}
   {% endif %}
   </legend>
   {% endif %}
-{% if params.html is defined %}
+{% if params.html | default(false) %}
   {{ params.html | raw }}
 {% endif %}
 </fieldset>

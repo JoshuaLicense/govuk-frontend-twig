@@ -2,7 +2,7 @@
 {% from "@govuk-frontend-twig/components/button.html.twig" import govukButton -%}
 
 <div class="govuk-cookie-banner {{ params.classes | default() }}" data-nosnippet role="region" aria-label="{{ params.ariaLabel | default("Cookie banner") }}"
-  {%- if params.hidden is defined and params.hidden is not null %} hidden{% endif %}
+  {%- if params.hidden | default(false) %} hidden{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
 
   {%- for message in params.messages ?? [] %}

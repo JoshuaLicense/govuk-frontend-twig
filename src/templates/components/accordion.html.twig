@@ -2,7 +2,7 @@
 {% set id = params.id %}
 {% set headingLevel = params.headingLevel ?? 2 %}
 
-<div class="govuk-accordion {%- if params.classes is defined and params.classes is not null %} {{ params.classes }}{% endif -%}" data-module="govuk-accordion" id="{{ id }}"
+<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif -%}" data-module="govuk-accordion" id="{{ id }}"
   {%- if params.hideAllSectionsText ?? false %} data-i18n.hide-all-sections="{{ params.hideAllSectionsText | escape }}"{% endif %}
   {%- if params.hideSectionText ?? false %} data-i18n.hide-section="{{ params.hideSectionText | escape }}"{% endif %}
   {%- if params.hideSectionAriaLabelText ?? false %} data-i18n.hide-section-aria-label="{{ params.hideSectionAriaLabelText | escape }}"{% endif %}

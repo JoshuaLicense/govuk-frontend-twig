@@ -2,7 +2,7 @@
 <footer class="govuk-footer {{ params.classes | default() }}" role="contentinfo"
         {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
   <div class="govuk-width-container {{ params.containerClasses | default() }}">
-    {% if params.navigation is defined and params.navigation | length %}
+    {% if params.navigation | default(false) %}
       <div class="govuk-footer__navigation">
         {% for nav in params.navigation %}
           <div class="govuk-footer__section govuk-grid-column-{{ nav.width | default('full') }}">
@@ -34,7 +34,7 @@
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         {% if params.meta is defined %}
           <h2 class="govuk-visually-hidden">{{ params.meta.visuallyHiddenTitle | default("Support links") }}</h2>
-          {% if params.meta.items is defined and params.meta.items | length %}
+          {% if params.meta.items | default(false) %}
             <ul class="govuk-footer__inline-list">
               {% for item in params.meta.items ?? [] %}
                 <li class="govuk-footer__inline-list-item">
@@ -45,9 +45,9 @@
               {% endfor %}
             </ul>
           {% endif %}
-          {% if params.meta.text is defined or params.meta.html is defined %}
+          {% if params.meta.text | default(false) or params.meta.html | default(false) %}
             <div class="govuk-footer__meta-custom">
-              {{ params.meta.html is defined and params.meta.html is not null ? params.meta.html | raw : params.meta.text }}
+              {{ params.meta.html | default(false) ? params.meta.html | raw : params.meta.text }}
             </div>
           {% endif %}
         {% endif %}
@@ -70,8 +70,8 @@
           />
         </svg>
         <span class="govuk-footer__licence-description">
-          {% if params.contentLicence.html is defined or params.contentLicence.text is defined %}
-            {{ params.contentLicence.html is defined and params.contentLicence.html is not null ? params.contentLicence.html | raw : params.contentLicence.text }}
+          {% if params.contentLicence.html | default(false) or params.contentLicence.text | default(false) %}
+            {{ params.contentLicence.html | default(false) ? params.contentLicence.html | raw : params.contentLicence.text }}
           {% else %}
             All content is available under the
             <a
@@ -87,8 +87,8 @@
           class="govuk-footer__link govuk-footer__copyright-logo"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
         >
-          {%- if params.copyright.html is defined or params.copyright.text is defined -%}
-            {{ params.copyright.html is defined and params.copyright.html is not null ? params.copyright.html | raw : params.copyright.text }}
+          {%- if params.copyright.html | default(false) or params.copyright.text | default(false) -%}
+            {{ params.copyright.html | default(false) ? params.copyright.html | raw : params.copyright.text }}
           {%- else -%}
             © Crown copyright
           {%- endif -%}

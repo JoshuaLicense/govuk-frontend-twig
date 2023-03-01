@@ -1,7 +1,7 @@
 {% macro govukBreadcrumbs(params) %}
 {%- set classNames = "govuk-breadcrumbs" -%}
 
-{% if params.classes is defined and params.classes is not null %}
+{% if params.classes | default(false) %}
   {% set classNames = "#{classNames} #{params.classes}" %}
 {% endif -%}
 
