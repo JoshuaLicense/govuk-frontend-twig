@@ -38,6 +38,7 @@ const developedComponents = [
   'tag',
   'skip-link',
   'panel',
+  'phase-banner',
 ];
 
 const getAllComponents = async () => {
