@@ -34,6 +34,7 @@ const developedComponents = [
   'date-input',
   'input',
   'notification-banner',
+  'pagination',
 ];
 
 const getAllComponents = async () => {
