@@ -31,6 +31,7 @@ const developedComponents = [
   'character-count',
   'textarea',
   'checkboxes',
+  'date-input',
   'input',
 ];
 
