@@ -1,0 +1,52 @@
+{% macro govukNotificationBanner(params) %}
+{%- if params.type is defined and params.type == "success" %}
+  {% set successBanner = true %}
+{% endif %}
+
+{%- if successBanner | default(false) %}
+  {% set typeClass = "govuk-notification-banner--#{params.type}" %}
+{% endif %}
+
+{% if params.role | default(false) %}
+  {% set role = params.role %}
+{% elseif successBanner | default(false) %}
+  {# If type is success, add `role="alert"` to prioritise the information in the notification banner to users of assistive technologies #}
+
+  {% set role = "alert" %}
+{% else %}
+  {# Otherwise add `role="region"` to make the notification banner a landmark to help users of assistive technologies to navigate to the banner #}
+
+  {% set role = "region" %}
+{% endif %}
+
+{%- if params.titleHtml | default(false) %}
+  {% set title = params.titleHtml | raw %}
+{%- elseif params.titleText | default(false) %}
+  {% set title = params.titleText %}
+{%- elseif successBanner | default(false) %}
+  {% set title = "Success" %}
+{%- else %}
+  {% set title = "Important" %}
+{%- endif -%}
+
+<div class="govuk-notification-banner{% if typeClass | default(false) %} {{ typeClass }}{% endif %}{% if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="{{ role }}"
+  aria-labelledby="{{ params.titleId | default('govuk-notification-banner-title')}}"
+  data-module="govuk-notification-banner"
+  {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif %}
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+  <div class="govuk-notification-banner__header">
+    <h{{ params.titleHeadingLevel | default(2) }} class="govuk-notification-banner__title" id="{{ params.titleId | default('govuk-notification-banner-title') }}" >
+      {{ title }}
+    </h{{ params.titleHeadingLevel | default(2) }}>
+  </div>
+  <div class="govuk-notification-banner__content">
+    {%- if params.html | default(false) -%}
+      {{ params.html | raw }}
+    {%- elseif params.text | default(false) -%}
+      {# Set default style for single line content #}
+
+      <p class="govuk-notification-banner__heading">{{ params.text }}</p>
+    {%- endif -%}
+  </div>
+</div>
+{% endmacro %}

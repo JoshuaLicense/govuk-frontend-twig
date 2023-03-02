@@ -33,6 +33,7 @@ const developedComponents = [
   'checkboxes',
   'date-input',
   'input',
+  'notification-banner',
 ];
 
 const getAllComponents = async () => {
