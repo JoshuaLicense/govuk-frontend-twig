@@ -39,6 +39,7 @@ const developedComponents = [
   'skip-link',
   'panel',
   'phase-banner',
+  'warning-text',
 ];
 
 const getAllComponents = async () => {

@@ -1,0 +1,11 @@
+{% macro govukWarningText(params) %}
+<div class="govuk-warning-text {{- params.classes | default(false) ? ' ' ~ params.classes : '' }}"
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor -%}
+  >
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive">{{ params.iconFallbackText }}</span>
+    {{ params.html | default(false) ? params.html | raw : params.text | default() }}
+  </strong>
+</div>
+{% endmacro %}
