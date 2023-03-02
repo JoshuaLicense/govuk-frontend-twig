@@ -35,6 +35,7 @@ const developedComponents = [
   'input',
   'notification-banner',
   'pagination',
+  'panel',
 ];
 
 const getAllComponents = async () => {
