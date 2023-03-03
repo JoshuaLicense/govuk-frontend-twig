@@ -40,6 +40,7 @@ const developedComponents = [
   'panel',
   'phase-banner',
   'warning-text',
+  'tabs',
 ];
 
 const getAllComponents = async () => {
