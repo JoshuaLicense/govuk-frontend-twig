@@ -11,41 +11,9 @@ export interface ComponentFixture {
   }[],
 }
 
-// During development.
-const developedComponents = [
-  'accordion',
-  'back-link',
-  'breadcrumbs',
-  'button',
-  'label',
-  'inset-text',
-  'cookie-banner',
-  'details',
-  'error-message',
-  'error-summary',
-  'fieldset',
-  'header',
-  'footer',
-  'hint',
-  'file-upload',
-  'character-count',
-  'textarea',
-  'checkboxes',
-  'date-input',
-  'input',
-  'notification-banner',
-  'pagination',
-  'tag',
-  'skip-link',
-  'panel',
-  'phase-banner',
-  'warning-text',
-  'tabs',
-];
-
 const getAllComponents = async () => {
   const govukPath = `${path.dirname(require.resolve('govuk-frontend'))}/components/`;
-  const govukComponents = (await readdir(govukPath, { withFileTypes: true })).filter((file) => file.isDirectory()).map((directory) => directory.name).filter((component) => developedComponents.includes(component));
+  const govukComponents = (await readdir(govukPath, { withFileTypes: true })).filter((file) => file.isDirectory()).map((directory) => directory.name);
 
   return Promise.all(govukComponents.map(async (component) => {
     const componentFixturePath = path.resolve(govukPath, component);
