@@ -1,0 +1,89 @@
+{% macro govukSummaryList(params) %}
+
+{# Determine if we need 2 or 3 columns #}
+{% set anyRowHasActions = false %}
+{% for row in params.rows ?? [] %}
+  {% if row.actions | default(false) %}{% set anyRowHasActions = row.actions.items | length ? true : anyRowHasActions %}{% endif %}
+{% endfor -%}
+
+{% set summaryList %}
+  <dl class="govuk-summary-list {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+    {% for row in params.rows %}
+      {% if row %}
+        <div class="govuk-summary-list__row {%- if anyRowHasActions and not row.actions.items | default(false) %} govuk-summary-list__row--no-actions{% endif %} {%- if row.classes | default(false) %} {{ row.classes }}{% endif %}">
+          <dt class="govuk-summary-list__key {%- if row.key.classes | default(false) %} {{ row.key.classes }}{% endif %}">
+            {{ row.key.html | default(false) ? row.key.html | raw : row.key.text }}
+          </dt>
+          <dd class="govuk-summary-list__value {%- if row.value.classes | default(false) %} {{ row.value.classes }}{% endif %}">
+            {{ row.value.html | default(false) ? row.value.html | trim | raw : row.value.text }}
+          </dd>
+          {% if row.actions.items | default(false) %}
+            <dd class="govuk-summary-list__actions {%- if row.actions.classes | default(false) %} {{ row.actions.classes }}{% endif %}">
+              {% if row.actions.items | length == 1 %}
+                {{ _self._actionLink(row.actions.items[0]) | trim }}
+              {% else %}
+                <ul class="govuk-summary-list__actions-list">
+                  {%- for action in row.actions.items ?? [] -%}
+                    <li class="govuk-summary-list__actions-list-item">
+                      {{- _self._actionLink(action) | trim -}}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {% endif %}
+            </dd>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </dl>
+{%- endset %}
+
+{%- if params.card | default(false) -%}
+  {{ _self._summaryCard(params.card, summaryList) -}}
+{%- else -%}
+  {{ summaryList | raw }}
+{%- endif %}
+{% endmacro %}
+
+{%- macro _actionLink(action) %}
+  <a class="govuk-link {%- if action.classes | default(false) %} {{ action.classes }}{% endif %}" href="{{ action.href }}" {%- for attribute, value in action.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+    {{ action.html | default(false) ? action.html | raw : action.text }}
+    {%- if action.visuallyHiddenText | default(false) -%}
+      <span class="govuk-visually-hidden"> {{ action.visuallyHiddenText }}</span>
+    {% endif -%}
+  </a>
+{% endmacro %}
+
+{% macro _summaryCard(params, content) %}
+  {%- set headingLevel = params.title.headingLevel | default(2) -%}
+
+  <div class="govuk-summary-card {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+    <div class="govuk-summary-card__title-wrapper">
+      {%- if params.title | default(false) -%}
+        <h{{ headingLevel }} class="govuk-summary-card__title {%- if params.title.classes | default(false) %} {{ params.title.classes }}{% endif %}">
+          {{- params.title.html | default(false) ? params.title.html | raw : params.title.text -}}
+        </h{{ headingLevel }}>
+      {%- endif -%}
+
+      {%- if params.actions.items | default(false) -%}
+        {%- if params.actions.items | length == 1 -%}
+          <div class="govuk-summary-card__actions {%- if params.actions.classes | default(false) %} {{ params.actions.classes }}{% endif %}">
+            {{- _self._actionLink(params.actions.items[0]) -}}
+          </div>
+        {%- else -%}
+          <ul class="govuk-summary-card__actions {%- if params.actions.classes | default(false) %} {{ params.actions.classes }}{% endif %}">
+            {%- for action in params.actions.items -%}
+              <li class="govuk-summary-card__action">
+                {{- _self._actionLink(action) -}}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {% endif -%}
+      {%- endif -%}
+    </div>
+
+    <div class="govuk-summary-card__content">
+      {{- content | raw -}}
+    </div>
+  </div>
+{% endmacro %}
