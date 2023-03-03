@@ -1,0 +1,53 @@
+{% macro govukSelect(params) %}
+{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage -%}
+{% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
+{% from "@govuk-frontend-twig/components/label.html.twig" import govukLabel %}
+
+{#- a record of other elements that we need to associate with the input using
+   aria-describedby – for example hints or error messages -#}
+{% set describedBy = params.describedBy | default("") %}
+<div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}">
+  {{ govukLabel({
+    html: params.label.html | default(null),
+    text: params.label.text | default(null),
+    classes: params.label.classes | default(null),
+    isPageHeading: params.label.isPageHeading | default(null),
+    attributes: params.label.attributes | default(null),
+    for: params.id | default(null)
+  }) | trim }}
+{% if params.hint | default(false) %}
+  {% set hintId = "#{params.id}-hint" %}
+  {% set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" %}
+  {{ govukHint({
+    id: hintId,
+    classes: params.hint.classes | default(null),
+    attributes: params.hint.attributes | default(null),
+    html: params.hint.html | default(null),
+    text: params.hint.text | default(null)
+  }) | trim }}
+{% endif %}
+{% if params.errorMessage | default(false) %}
+  {% set errorId = "#{params.id}-error" %}
+  {% set describedBy = describedBy is empty ? errorId : "#{describedBy} #{errorId}" %}
+  {{ govukErrorMessage({
+    id: errorId,
+    classes: params.errorMessage.classes | default(null),
+    attributes: params.errorMessage.attributes | default(null),
+    html: params.errorMessage.html | default(null),
+    text: params.errorMessage.text | default(null),
+    visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
+  }) | trim }}
+{% endif %}
+  <select class="govuk-select
+    {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}{%- if params.errorMessage | default(false) %} govuk-select--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %} {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
+  {% for item in params.items ?? [] %}
+    {% if item %}
+      <option value="{{ item.value }}"
+        {{- item.selected is defined ? (item.selected == true ? " selected" : "") : (params.value | default(false) and item.value == params.value ? " selected" : "") }}
+        {{- item.disabled | default(false) ? " disabled" : "" }}
+        {%- for attribute, value in item.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor -%}>{{ item.text }}</option>
+    {% endif %}
+  {% endfor %}
+  </select>
+</div>
+{% endmacro %}
