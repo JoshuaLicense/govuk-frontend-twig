@@ -23,7 +23,7 @@
     attributes: params.hint.attributes | default(null),
     html: params.hint.html | default(null),
     text: params.hint.text | default(null)
-  }) | trim }}
+  }) | trim | raw }}
 {% endif %}
 {% if params.errorMessage | default(false) %}
   {% set errorId = "#{idPrefix}-error" %}
@@ -35,7 +35,7 @@
     html: params.errorMessage.html | default(null),
     text: params.errorMessage.text | default(null),
     visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
-  }) | trim }}
+  }) | trim | raw }}
 {% endif %}
   <div class="govuk-radios {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
     {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}
@@ -73,7 +73,7 @@
             classes: "govuk-radios__label#{item.label.classes | default(false) ? ' ' ~ item.label.classes : ''}",
             attributes: item.label.attributes | default(null),
             for: id
-          }) | trim }}
+          }) | trim | raw }}
           {% if hasHint %}
           {{ govukHint({
             id: itemHintId,
@@ -81,7 +81,7 @@
             attributes: item.hint.attributes | default(null),
             html: item.hint.html | default(null),
             text: item.hint.text | default(null)
-          }) | trim }}
+          }) | trim | raw }}
           {% endif %}
         </div>
         {% if item.conditional.html | default(false) %}
@@ -106,7 +106,7 @@
     classes: params.fieldset.classes | default(null),
     attributes: params.fieldset.attributes | default(null),
     legend: params.fieldset.legend | default(null)
-  }) -}}
+  }) | raw -}}
 {% else %}
   {{ innerHtml | trim | raw }}
 {% endif %}

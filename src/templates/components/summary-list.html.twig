@@ -20,12 +20,12 @@
           {% if row.actions.items | default(false) %}
             <dd class="govuk-summary-list__actions {%- if row.actions.classes | default(false) %} {{ row.actions.classes }}{% endif %}">
               {% if row.actions.items | length == 1 %}
-                {{ _self._actionLink(row.actions.items[0]) | trim }}
+                {{ _self._actionLink(row.actions.items[0]) | trim | raw }}
               {% else %}
                 <ul class="govuk-summary-list__actions-list">
                   {%- for action in row.actions.items ?? [] -%}
                     <li class="govuk-summary-list__actions-list-item">
-                      {{- _self._actionLink(action) | trim -}}
+                      {{- _self._actionLink(action) | trim | raw -}}
                     </li>
                   {%- endfor -%}
                 </ul>

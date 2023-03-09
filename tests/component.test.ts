@@ -1,7 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import nunjucks from 'nunjucks';
 import * as changeCase from 'change-case';
-import { decode } from 'html-entities';
 
 const renderNunjucksComponent = (component: string, context: unknown) => {
   const stringContext = JSON.stringify(context, undefined, '  ');
@@ -21,13 +20,17 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
     {},
   );
 
-  return decode(njk);
+  // In PHP: ' escapes to &#039.
+  // In Nunjucks: ' escapes to &#039.
+  return njk.replaceAll('&#39', '&#039');
 };
 
 const renderTwigComponent = (component: string, context: unknown) => {
   const { stdout: twigBuffer } = spawnSync('php', [`${__dirname}/renderTwig.php`, component], { input: JSON.stringify(context) });
 
-  return decode(twigBuffer.toString());
+  const twig = twigBuffer.toString();
+
+  return twig;
 };
 
 describe.each(globalThis.components)('Nunjucks output HTML should match Twig output HTML', (componentFixture) => {

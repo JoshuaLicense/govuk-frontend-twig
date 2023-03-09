@@ -14,7 +14,7 @@
     isPageHeading: params.label.isPageHeading | default(null),
     attributes: params.label.attributes | default(null),
     for: params.id | default(null)
-  }) | trim }}
+  }) | trim | raw }}
 {% if params.hint | default(false) %}
   {% set hintId = "#{params.id}-hint" %}
   {% set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" %}
@@ -24,7 +24,7 @@
     attributes: params.hint.attributes | default(null),
     html: params.hint.html | default(null),
     text: params.hint.text | default(null)
-  }) | trim }}
+  }) | trim | raw }}
 {% endif %}
 {% if params.errorMessage | default(false) %}
   {% set errorId = "#{params.id}-error" %}
@@ -36,7 +36,7 @@
     html: params.errorMessage.html | default(null),
     text: params.errorMessage.text | default(null),
     visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
-  }) | trim }}
+  }) | trim | raw }}
 {% endif %}
   <select class="govuk-select
     {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}{%- if params.errorMessage | default(false) %} govuk-select--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %} {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>

@@ -19,15 +19,7 @@
   {% set role = "region" %}
 {% endif %}
 
-{%- if params.titleHtml | default(false) %}
-  {% set title = params.titleHtml | raw %}
-{%- elseif params.titleText | default(false) %}
-  {% set title = params.titleText %}
-{%- elseif successBanner | default(false) %}
-  {% set title = "Success" %}
-{%- else %}
-  {% set title = "Important" %}
-{%- endif -%}
+{{- "  " -}} {#- To match GOVUK frontend whitespace -#}
 
 <div class="govuk-notification-banner{% if typeClass | default(false) %} {{ typeClass }}{% endif %}{% if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="{{ role }}"
   aria-labelledby="{{ params.titleId | default('govuk-notification-banner-title')}}"
@@ -36,7 +28,15 @@
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
   <div class="govuk-notification-banner__header">
     <h{{ params.titleHeadingLevel | default(2) }} class="govuk-notification-banner__title" id="{{ params.titleId | default('govuk-notification-banner-title') }}" >
-      {{ title }}
+{% if params.titleHtml | default(false) %}
+      {{ params.titleHtml | raw }}
+{% elseif params.titleText | default(false) %}
+      {{ params.titleText }}
+{% elseif successBanner | default(false) %}
+      {{ "Success" }}
+{% else %}
+      {{ "Important" }}
+{% endif %}
     </h{{ params.titleHeadingLevel | default(2) }}>
   </div>
   <div class="govuk-notification-banner__content">

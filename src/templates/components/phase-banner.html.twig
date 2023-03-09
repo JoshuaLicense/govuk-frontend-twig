@@ -8,7 +8,7 @@
       text: params.tag.text | default(null),
       html: params.tag.html | default(null),
       classes: "govuk-phase-banner__content__tag#{params.tag.classes | default(false) ? ' ' ~ params.tag.classes : ''}"
-    }) | trim }}
+    }) | trim | raw }}
     <span class="govuk-phase-banner__text">
       {{ params.html | default(false) ? params.html | raw : params.text }}
     </span>
