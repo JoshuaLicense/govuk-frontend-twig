@@ -8,7 +8,7 @@ The following table shows the version of GOV.UK Frontend Twig that you should us
 
 | GOV.UK Frontend Twig Version                                                      | GOV.UK Frontend Version                                                  |
 | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [v4.5.0](https://github.com/LandRegistry/govuk-frontend-twig/releases/tag/v1.0.0) | [v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0) |
+| [v4.5.0](https://github.com/LandRegistry/govuk-frontend-twig/releases/tag/v4.5.0) | [v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0) |
 
 Versioning of this package will match the [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend) major and minor version. Patch versions _may_ differ.
 
