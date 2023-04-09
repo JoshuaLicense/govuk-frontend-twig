@@ -1,23 +1,26 @@
 # GOV.UK Frontend Twig
 
-This repository contains a complete set of [Twig](https://twig.symfony.com/) macros that are 100% compliant with the original [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend).
+This repository contains a collection of [Twig](https://twig.symfony.com/) macros that generate HTML code compatible with the [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend) design system.
 
 ## Compatibility
+Refer to the table below to determine which version of GOV.UK Frontend Twig you should use for your targeted version of [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend):
 
-The following table shows the version of GOV.UK Frontend Twig that you should use for your targeted version of GOV.UK Frontend:
+| GOV.UK Frontend Twig Version                                                       | GOV.UK Frontend Version                                                  |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [v4.5.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v4.5.0) | [v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0) |
 
-| GOV.UK Frontend Twig Version                                                      | GOV.UK Frontend Version                                                  |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [v4.5.0](https://github.com/LandRegistry/govuk-frontend-twig/releases/tag/v4.5.0) | [v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0) |
+Note that the versioning of this package will match the major and minor versions of [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend), but patch versions may differ.
 
-Versioning of this package will match the [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend) major and minor version. Patch versions _may_ differ.
+## Usage
 
-## How to use
+### Installation
+To use GOV.UK Frontend Twig in your project, install it via [Composer](https://getcomposer.org/):
+```bash
+composer require joshualicense/govuk-frontend-twig
+```
 
-### Install
-`composer require joshualicense/govuk-frontend-twig`
-
-### Configure
+### Configuration
+In your PHP code, configure the Twig template loader to include the GOV.UK Frontend Twig macros:
 ```php
 use Composer\Autoload\ClassLoader;
 use Twig\Loader\FilesystemLoader;
@@ -30,7 +33,8 @@ $loader = new FilesystemLoader();
 $loader->addPath($vendorDir . '/joshualicense/govuk-frontend-twig/src/templates', 'govuk-frontend-twig');
 ```
 
-### Usage
+### Usage examples
+Here's an example of how to use a GOV.UK Frontend Twig macro in your Twig template:
 ```twig
 {% from "@govuk-frontend-twig/components/back-link.html.twig" import govukBackLink %}
 
@@ -40,4 +44,4 @@ $loader->addPath($vendorDir . '/joshualicense/govuk-frontend-twig/src/templates'
 }) }}
 ```
 
-All components and macro options can be found in the original [GOV.UK Design System Components](https://design-system.service.gov.uk/components/) documentation.
+Refer to the original [GOV.UK Design System Components](https://design-system.service.gov.uk/components/) for more information on available components and macro options.
