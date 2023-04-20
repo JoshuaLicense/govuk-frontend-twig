@@ -12,7 +12,7 @@
    aria-describedby – for example hints or error messages -#}
 {% set describedBy = params.describedBy | default() %}
 {% if params.fieldset.describedBy | default(false) %}
-   {% set describedBy = params.fieldset.describedBy %}
+  {% set describedBy = params.fieldset.describedBy %}
 {% endif %}
 
 {#- fieldset is false by default -#}

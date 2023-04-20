@@ -40,6 +40,7 @@
 {% endif %}
   <input class="govuk-file-upload {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-file-upload--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" type="file"
   {%- if params.value | default(false) %} value="{{ params.value }}"{% endif %}
+  {%- if params.disabled | default(false) %} disabled{% endif %}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
 </div>

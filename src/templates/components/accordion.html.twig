@@ -9,6 +9,7 @@
   {%- if params.showAllSectionsText ?? false %} data-i18n.show-all-sections="{{ params.showAllSectionsText | escape }}"{% endif %}
   {%- if params.showSectionText ?? false %} data-i18n.show-section="{{ params.showSectionText | escape }}"{% endif %}
   {%- if params.showSectionAriaLabelText ?? false %} data-i18n.show-section-aria-label="{{ params.showSectionAriaLabelText | escape }}"{% endif %}
+  {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
   {% for item in params.items ?? [] %}
     {% if item %}

@@ -40,6 +40,7 @@
 {% endif %}
   <textarea class="govuk-textarea {%- if params.errorMessage | default(false) %} govuk-textarea--error{% endif %} {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" id="{{ params.id }}" name="{{ params.name }}" rows="{% if params.rows | default(false) %} {{- params.rows -}} {% else %}5{% endif %}"
   {%- if params.spellcheck is defined and params.spellcheck is not null %} spellcheck="{{ params.spellcheck ? 'true' : 'false' }}"{% endif %}
+  {%- if params.disabled | default(false) %} disabled{% endif %}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
   {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>{{ params.value | default() }}</textarea>
