@@ -47,9 +47,10 @@
     </div>
   {% endif -%}
 
-  <input class="govuk-input {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-input--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" type="{{ params.type | default('text') }}"
+  <input class="govuk-input {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-input--error{% endif %}" id="{{ params.id }}" name="{{ params.name | default() }}" type="{{ params.type | default('text') }}"
   {%- if params.spellcheck is defined %} spellcheck="{{ params.spellcheck ? 'true' : 'false' }}"{% endif %}
   {%- if params.value | default(false) %} value="{{ params.value}}"{% endif %}
+  {%- if params.disabled | default(false) %} disabled{% endif %}
   {%- if describedBy| default(false)  %} aria-describedby="{{ describedBy }}"{% endif %}
   {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif %}
   {%- if params.pattern | default(false) %} pattern="{{ params.pattern }}"{% endif %}

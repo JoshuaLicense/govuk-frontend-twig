@@ -39,7 +39,10 @@
   }) | trim | raw }}
 {% endif %}
   <select class="govuk-select
-    {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}{%- if params.errorMessage | default(false) %} govuk-select--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %} {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
+    {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}{%- if params.errorMessage | default(false) %} govuk-select--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}"
+    {%- if params.disabled | default(false) %} disabled{% endif %}
+    {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
+    {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
   {% for item in params.items ?? [] %}
     {% if item %}
       <option value="{{ item.value }}"
