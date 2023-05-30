@@ -20,8 +20,7 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
     {},
   );
 
-  // In PHP: ' escapes to &#039.
-  // In Nunjucks: ' escapes to &#039.
+  // In Twig: ' escapes to &#039. In Nunjucks: ' escapes to &#039.
   return njk.replaceAll('&#39', '&#039');
 };
 
@@ -30,7 +29,8 @@ const renderTwigComponent = (component: string, context: unknown) => {
 
   const twig = twigBuffer.toString();
 
-  return twig;
+  // In Nunjucks: \ escapes to &#92. In Twig backslashes are not escaped.
+  return twig.replaceAll('\\', '&#92;');
 };
 
 describe.each(globalThis.components)('Nunjucks output HTML should match Twig output HTML', (componentFixture) => {
