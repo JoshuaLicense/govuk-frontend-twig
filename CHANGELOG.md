@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.0...v4.6.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* bump Nunjucks to v3.2.4 ([#10](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/10)) ([24ae9ac](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/24ae9acb1a687c1d77c9c0daf661752b8897dde1))
+
 ## [4.6.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.5.0...v4.6.0) (2023-04-20)
 
 
