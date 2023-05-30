@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.2](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.1...v4.6.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* add license to `composer.json` ([#12](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/12)) ([bf6bde6](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/bf6bde6997648d0970355aa6a0da6556c7f63958))
+
 ## [4.6.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.0...v4.6.1) (2023-05-30)
 
 
