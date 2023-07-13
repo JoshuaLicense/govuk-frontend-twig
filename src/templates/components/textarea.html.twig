@@ -43,6 +43,6 @@
   {%- if params.disabled | default(false) %} disabled{% endif %}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
   {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif %}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>{{ params.value | default() }}</textarea>
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ params.value | default() }}</textarea>
 </div>
 {% endmacro %}

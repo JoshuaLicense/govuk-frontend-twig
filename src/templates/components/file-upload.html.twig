@@ -42,6 +42,6 @@
   {%- if params.value | default(false) %} value="{{ params.value }}"{% endif %}
   {%- if params.disabled | default(false) %} disabled{% endif %}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
 </div>
 {% endmacro %}

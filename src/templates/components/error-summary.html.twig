@@ -20,7 +20,7 @@
         {% for item in params.errorList ?? [] %}
           <li>
           {% if item.href is defined and item.href is not null %}
-            <a href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>{{ item.html is defined and item.html is not null ? item.html | raw : item.text }}</a>
+            <a href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ item.html is defined and item.html is not null ? item.html | raw : item.text }}</a>
           {% else %}
             {{ item.html is defined and item.html is not null ? item.html | raw : item.text }}
           {% endif %}

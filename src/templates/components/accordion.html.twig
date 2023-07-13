@@ -10,7 +10,7 @@
   {%- if params.showSectionText ?? false %} data-i18n.show-section="{{ params.showSectionText | escape }}"{% endif %}
   {%- if params.showSectionAriaLabelText ?? false %} data-i18n.show-section-aria-label="{{ params.showSectionAriaLabelText | escape }}"{% endif %}
   {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif %}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   {% for item in params.items ?? [] %}
     {% if item %}
       <div class="govuk-accordion__section {%- if item.expanded ?? false %} govuk-accordion__section--expanded{% endif %}">

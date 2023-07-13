@@ -1,5 +1,5 @@
 {% macro govukDetails(params) %}
-<details {%- if params.id | default(false) %} id="{{params.id}}"{% endif %} class="govuk-details {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-details" {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %} {{- params.open ?? false ? " open" : "" }}>
+<details {%- if params.id | default(false) %} id="{{params.id}}"{% endif %} class="govuk-details {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-details" {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %} {{- params.open ?? false ? " open" : "" }}>
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       {{ params.summaryHtml | default(false) ? params.summaryHtml | raw : params.summaryText }}

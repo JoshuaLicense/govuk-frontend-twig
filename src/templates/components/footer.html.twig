@@ -1,6 +1,6 @@
 {% macro govukFooter(params) %}
 <footer class="govuk-footer {{ params.classes | default() }}" role="contentinfo"
-        {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+        {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   <div class="govuk-width-container {{ params.containerClasses | default() }}">
     {% if params.navigation | default(false) %}
       <div class="govuk-footer__navigation">
@@ -17,7 +17,7 @@
                 {% for item in nav.items %}
                   {% if item.href is defined and item.text is defined %}
                     <li class="govuk-footer__list-item">
-                      <a class="govuk-footer__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+                      <a class="govuk-footer__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
                         {{ item.text }}
                       </a>
                     </li>
@@ -38,7 +38,7 @@
             <ul class="govuk-footer__inline-list">
               {% for item in params.meta.items ?? [] %}
                 <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+                  <a class="govuk-footer__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
                     {{ item.text }}
                   </a>
                 </li>
