@@ -3,6 +3,7 @@
 This repository contains a collection of [Twig](https://twig.symfony.com/) macros that generate HTML code compatible with the [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend) design system.
 
 ## Compatibility
+
 Refer to the table below to determine which version of GOV.UK Frontend Twig you should use for your targeted version of [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend):
 
 | GOV.UK Frontend Twig Version                                                       | GOV.UK Frontend Version                                                  |
@@ -15,13 +16,17 @@ Note that the versioning of this package will match the major and minor versions
 ## Usage
 
 ### Installation
+
 To use GOV.UK Frontend Twig in your project, install it via [Composer](https://getcomposer.org/):
+
 ```bash
 composer require joshualicense/govuk-frontend-twig
 ```
 
 ### Configuration
+
 In your PHP code, configure the Twig template loader to include the GOV.UK Frontend Twig macros:
+
 ```php
 use Composer\Autoload\ClassLoader;
 use Twig\Loader\FilesystemLoader;
@@ -35,7 +40,9 @@ $loader->addPath($vendorDir . '/joshualicense/govuk-frontend-twig/src/templates'
 ```
 
 ### Usage examples
+
 Here's an example of how to use a GOV.UK Frontend Twig macro in your Twig template:
+
 ```twig
 {% from "@govuk-frontend-twig/components/back-link.html.twig" import govukBackLink %}
 
