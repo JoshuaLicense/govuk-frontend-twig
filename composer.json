@@ -1,13 +1,13 @@
 {
-    "name": "joshualicense/govuk-frontend-twig",
-    "description": "GOV.UK Frontend Nunjucks templates converted to Twig",
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "": "src/"
-        }
-    },
-    "require": {
-        "twig/twig": "^3.5"
+  "name": "joshualicense/govuk-frontend-twig",
+  "description": "GOV.UK Frontend Nunjucks templates converted to Twig",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "": "src/"
     }
+  },
+  "require": {
+    "twig/twig": "^3.5"
+  }
 }

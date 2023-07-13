@@ -1,7 +1,9 @@
 name: CI
 
 on:
-  push:
+  pull_request:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
@@ -12,27 +14,14 @@ permissions:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          cache: 'npm'
-      - run: npm ci --prefer-offline
-      - run: npm run lint -- --max-warnings 0
+    uses: ./.github/workflows/lint.yaml
 
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          cache: 'npm'
-      - run: npm ci --prefer-offline
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-      - run: composer install --no-dev --optimize-autoloader
-      - run: npm test
+    uses: ./.github/workflows/test.yaml
+
+  security:
+    uses: ./.github/workflows/security.yaml
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
