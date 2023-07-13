@@ -5,9 +5,7 @@ export interface ComponentFixture {
   component: string,
   fixtures: {
     name: string;
-    options: {
-      [key: string]: unknown,
-    }
+    options: Record<string, unknown>
   }[],
 }
 
