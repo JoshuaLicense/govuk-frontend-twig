@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "prettier": "prettier --check . --ignore-path .gitignore",
+    "prettier": "prettier --check .",
     "all": "npm run lint && npm run prettier && npm run test"
   },
   "author": "",
