@@ -1,0 +1,31 @@
+name: Check PR title
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      TITLE: ${{ github.event.pull_request.title }}
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "latest"
+      - name: Install commitlint
+        run: npm install --save-dev @commitlint/{cli,config-conventional}
+      - name: Create config file
+        run: |
+          echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+      - name: Validate PR title
+        run: echo "$TITLE" | npx commitlint
