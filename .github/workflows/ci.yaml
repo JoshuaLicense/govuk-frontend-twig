@@ -14,34 +14,14 @@ permissions:
 
 jobs:
   lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-      - run: npm ci --prefer-offline
-      - run: npm run lint -- --max-warnings 0
+    uses: ./.github/workflows/lint.yaml
 
   test:
-    name: PHP${{ matrix.php-versions }} (Composer `prefer-${{ matrix.composer-stability }}`)
-    strategy:
-      fail-fast: false
-      matrix:
-        php-versions: ['8.0', '8.1', '8.2', '8.3']
-        composer-stability: ['stable', 'lowest']
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-      - run: npm ci --prefer-offline
-      - uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-versions }}
-      - run: composer update --prefer-dist --no-progress --no-suggest --ansi --prefer-${{ matrix.composer-stability }}
-      - run: npm test
+    uses: ./.github/workflows/test.yaml
+
+  security:
+    uses: ./.github/workflows/security.yaml
+    permissions:
+      contents: read
+      actions: read
+      security-events: write

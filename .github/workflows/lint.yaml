@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    strategy:
+      fail-fast: false
+      matrix:
+        command: ["npm run lint -- --max-warnings 0", "npm run prettier"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "npm"
+      - run: npm ci --prefer-offline
+      - run: ${{ matrix.command }}
