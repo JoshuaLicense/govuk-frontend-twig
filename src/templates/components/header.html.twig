@@ -2,7 +2,7 @@
 {% set menuButtonText = params.menuButtonText | default('Menu') %}
 
 <header class="govuk-header {{ params.classes | default() }}" role="banner" data-module="govuk-header"
-        {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+        {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   <div class="govuk-header__container {{ params.containerClasses | default('govuk-width-container') }}">
     <div class="govuk-header__logo">
       <a href="{{ params.homepageUrl | default('/') }}" class="govuk-header__link govuk-header__link--homepage">
@@ -72,7 +72,7 @@
           {% if item.text is defined or item.html is defined %}
             <li class="govuk-header__navigation-item{{ item.active is defined ? ' govuk-header__navigation-item--active' : '' }}">
               {% if item.href is defined %}
-                <a class="govuk-header__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+                <a class="govuk-header__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
               {% endif %}
                 {{ item.html is defined and item.html is not null ? item.html | raw : item.text }}
               {% if item.href is defined %}

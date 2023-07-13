@@ -1,6 +1,6 @@
 {% macro govukWarningText(params) %}
 <div class="govuk-warning-text {{- params.classes | default(false) ? ' ' ~ params.classes : '' }}"
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor -%}
+  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor -%}
   >
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">

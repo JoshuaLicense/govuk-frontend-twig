@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
-    "prettier": "prettier --check . --ignore-path .gitignore",
+    "prettier": "prettier --check .",
     "all": "npm run lint && npm run prettier && npm run test"
   },
   "author": "",
@@ -27,7 +27,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-promise": "^6.1.1",
-    "govuk-frontend": "4.6.0",
+    "govuk-frontend": "4.7.0",
     "jest": "^29.4.3",
     "nunjucks": "^3.2.3",
     "prettier": "3.0.0",

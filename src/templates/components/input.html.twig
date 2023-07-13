@@ -42,7 +42,7 @@
   {%- if params.prefix | default(false) or params.suffix | default(false) %}<div class="govuk-input__wrapper">{% endif -%}
 
   {%- if params.prefix.text | default(false) or params.prefix.html | default(false) -%}
-    <div class="govuk-input__prefix {%- if params.prefix.classes | default(false) %} {{ params.prefix.classes }}{% endif %}" aria-hidden="true" {%- for attribute, value in params.prefix.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+    <div class="govuk-input__prefix {%- if params.prefix.classes | default(false) %} {{ params.prefix.classes }}{% endif %}" aria-hidden="true" {%- for attribute, value in params.prefix.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
       {{- params.prefix.html | default(false) ? params.prefix.html | raw : params.prefix.text -}}
     </div>
   {% endif -%}
@@ -58,7 +58,7 @@
   {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor -%}>
 
   {%- if params.suffix.text | default(false) or params.suffix.html | default(false) -%}
-    <div class="govuk-input__suffix {%- if params.suffix.classes | default(false) %} {{ params.suffix.classes }}{% endif %}" aria-hidden="true" {%- for attribute, value in params.suffix.attributes ?? [] %} {{attribute}}="{{value}}"{% endfor %}>
+    <div class="govuk-input__suffix {%- if params.suffix.classes | default(false) %} {{ params.suffix.classes }}{% endif %}" aria-hidden="true" {%- for attribute, value in params.suffix.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
       {{- params.suffix.html | default(false) ? params.suffix.html | raw : params.suffix.text -}}
     </div>
   {% endif -%}
