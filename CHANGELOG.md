@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.3](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.2...v4.6.3) (2023-07-13)
+
+
+### Miscellaneous Chores
+
+* bump `[@typescript-eslint](https://github.com/typescript-eslint)` to v6 and `typescript` to v5.1 ([#14](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/14)) ([c52321a](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/c52321a972e30bce0e5e15d71201a99e4771c998))
+
 ## [4.6.2](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.1...v4.6.2) (2023-05-30)
 
 
