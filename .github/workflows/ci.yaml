@@ -26,7 +26,7 @@ jobs:
       - run: npm run lint -- --max-warnings 0
 
   test:
-    name: Test - PHP${{ matrix.php-versions }} (${{ matrix.composer-stability }} deps)
+    name: PHP${{ matrix.php-versions }} (Composer `prefer-${{ matrix.composer-stability }}`)
     strategy:
       fail-fast: false
       matrix:
