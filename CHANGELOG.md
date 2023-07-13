@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.7.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.3...v4.7.0) (2023-07-13)
+
+
+### Features
+
+* support `govuk-frontend` v4.7 ([#15](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/15)) ([8b44256](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/8b44256bbbef596e13c925e0558e8d0ae9928e50))
+
+
+### Miscellaneous Chores
+
+* update README with v4.7.0 detail ([#20](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/20)) ([4c824d8](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/4c824d86bb17dd94a4e6498c89915ed1316b1637))
+
 ## [4.6.3](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.2...v4.6.3) (2023-07-13)
 
 
