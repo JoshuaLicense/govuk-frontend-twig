@@ -16,7 +16,7 @@
     "@types/nunjucks": "^3.2.1",
     "@types/pascalcase": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/parser": "^6.3.0",
     "change-case": "^4.1.2",
     "eslint": "^8.34.0",
     "eslint-config-airbnb-base": "^15.0.0",
