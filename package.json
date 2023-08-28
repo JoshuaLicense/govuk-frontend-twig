@@ -11,7 +11,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@jest/types": "^29.4.1",
+    "@jest/types": "^29.6.3",
     "@types/jest": "^29.4.0",
     "@types/nunjucks": "^3.2.1",
     "@types/pascalcase": "^1.0.1",
