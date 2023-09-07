@@ -1,5 +1,15 @@
 # Changelog
 
+## [4.7.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.7.0...v4.7.1) (2023-09-07)
+
+
+### Miscellaneous Chores
+
+* add Dependabot ([#23](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/23)) ([25c5779](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/25c57799cb4568c2cf8ed511078b0ac9e2bc8073))
+* bump NPM dependencies ([#22](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/22)) ([1b533b2](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/1b533b2ab76a4b502d8217d536643fbac8c608f1))
+* fix dependabot config ([#37](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/37)) ([c4408c9](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/c4408c9f7eb1386b6fe9e6ee86a32d64fc761d02))
+* migrate to grouped dependency updates ([18b61cd](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/18b61cdd319a3f09a351489d672e884e7871caf1))
+
 ## [4.7.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.6.3...v4.7.0) (2023-07-13)
 
 
