@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import nunjucks from "nunjucks";
-import { pascalCase } from "change-case";
+import camelCase from "lodash.camelcase";
+import upperFirst from "lodash.upperfirst";
 
 const renderNunjucksComponent = (component: string, context: unknown) => {
   const stringContext = JSON.stringify(context, undefined, "  ");
@@ -12,10 +13,10 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
   // Overwrite `indent` filter to avoid whitespace differences in tests.
   env.addFilter("indent", (str: string) => str);
 
+  const normalisedCompoenentName = upperFirst(camelCase(component));
+
   const njk = env.renderString(
-    `{% from "govuk/components/${component}/macro.njk" import govuk${pascalCase(
-      component,
-    )} %}{{ govuk${pascalCase(component)}(${stringContext}) }}`,
+    `{% from "govuk/components/${component}/macro.njk" import govuk${normalisedCompoenentName} %}{{ govuk${normalisedCompoenentName}(${stringContext}) }}`,
     {},
   );
 
