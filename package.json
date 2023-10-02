@@ -14,7 +14,6 @@
     "@jest/types": "^29.6.3",
     "@types/jest": "^29.5.5",
     "@types/nunjucks": "^3.2.4",
-    "@types/pascalcase": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@typescript-eslint/parser": "^6.7.3",
     "change-case": "^5.0.1",

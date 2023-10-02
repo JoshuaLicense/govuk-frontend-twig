@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
 import nunjucks from "nunjucks";
-import * as changeCase from "change-case";
+import { pascalCase } from "change-case";
 
 const renderNunjucksComponent = (component: string, context: unknown) => {
   const stringContext = JSON.stringify(context, undefined, "  ");
@@ -13,9 +13,9 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
   env.addFilter("indent", (str: string) => str);
 
   const njk = env.renderString(
-    `{% from "govuk/components/${component}/macro.njk" import govuk${changeCase.pascalCase(
+    `{% from "govuk/components/${component}/macro.njk" import govuk${pascalCase(
       component,
-    )} %}{{ govuk${changeCase.pascalCase(component)}(${stringContext}) }}`,
+    )} %}{{ govuk${pascalCase(component)}(${stringContext}) }}`,
     {},
   );
 
