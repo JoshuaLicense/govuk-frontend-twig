@@ -1,7 +1,7 @@
 import { type ComponentFixture } from "./tests/setup";
 
 declare global {
-  declare namespace globalThis {
+  namespace globalThis {
     var components: ComponentFixture[];
   }
 }

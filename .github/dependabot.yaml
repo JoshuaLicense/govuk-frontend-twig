@@ -2,6 +2,7 @@ version: 2
 updates:
   - package-ecosystem: "composer"
     directory: "/"
+    versioning-strategy: "increase-if-necessary"
     schedule:
       interval: "weekly"
     groups:
@@ -11,6 +12,7 @@ updates:
 
   - package-ecosystem: "npm"
     directory: "/"
+    versioning-strategy: "increase-if-necessary"
     schedule:
       interval: "weekly"
     groups:
