@@ -20,12 +20,12 @@
           {% if row.actions.items | default(false) %}
             <dd class="govuk-summary-list__actions {%- if row.actions.classes | default(false) %} {{ row.actions.classes }}{% endif %}">
               {% if row.actions.items | length == 1 %}
-                {{ _self._actionLink(row.actions.items[0]) | trim | raw }}
+                {{ _self._actionLink(row.actions.items[0], params.card.title | default(null)) | trim | raw }}
               {% else %}
                 <ul class="govuk-summary-list__actions-list">
                   {%- for action in row.actions.items ?? [] -%}
                     <li class="govuk-summary-list__actions-list-item">
-                      {{- _self._actionLink(action) | trim | raw -}}
+                      {{- _self._actionLink(action, params.card.title | default(null)) | trim | raw -}}
                     </li>
                   {%- endfor -%}
                 </ul>
@@ -45,12 +45,16 @@
 {%- endif %}
 {% endmacro %}
 
-{%- macro _actionLink(action) %}
+{%- macro _actionLink(action, cardTitle) %}
   <a class="govuk-link {%- if action.classes | default(false) %} {{ action.classes }}{% endif %}" href="{{ action.href }}" {%- for attribute, value in action.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
-    {{ action.html | default(false) ? action.html | raw : action.text }}
-    {%- if action.visuallyHiddenText | default(false) -%}
-      <span class="govuk-visually-hidden"> {{ action.visuallyHiddenText }}</span>
-    {% endif -%}
+    {{- action.html | default(false) ? action.html | raw : action.text -}}
+    {%- if (action.visuallyHiddenText | default(false) or cardTitle.html | default(false) or cardTitle.text | default(false)) -%}
+      <span class="govuk-visually-hidden">
+        {%- if action.visuallyHiddenText | default(false) %} {{ action.visuallyHiddenText }}{% endif -%}
+        {%- if cardTitle.html | default(false) %} ({{ cardTitle.html | raw }}){% endif -%}
+        {%- if cardTitle.text | default(false)  %} ({{ cardTitle.text }}){% endif -%}
+      </span>
+    {%- endif -%}
   </a>
 {% endmacro %}
 
@@ -68,13 +72,13 @@
       {%- if params.actions.items | default(false) -%}
         {%- if params.actions.items | length == 1 -%}
           <div class="govuk-summary-card__actions {%- if params.actions.classes | default(false) %} {{ params.actions.classes }}{% endif %}">
-            {{- _self._actionLink(params.actions.items[0]) -}}
+            {{- _self._actionLink(params.actions.items[0], params.title | default(null)) -}}
           </div>
         {%- else -%}
           <ul class="govuk-summary-card__actions {%- if params.actions.classes | default(false) %} {{ params.actions.classes }}{% endif %}">
             {%- for action in params.actions.items -%}
               <li class="govuk-summary-card__action">
-                {{- _self._actionLink(action) -}}
+                {{- _self._actionLink(action, params.title | default(null)) -}}
               </li>
             {%- endfor -%}
           </ul>

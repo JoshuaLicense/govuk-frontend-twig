@@ -27,7 +27,7 @@
   {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   <div class="govuk-notification-banner__header">
-    <h{{ params.titleHeadingLevel | default(2) }} class="govuk-notification-banner__title" id="{{ params.titleId | default('govuk-notification-banner-title') }}" >
+    <h{{ params.titleHeadingLevel | default(2) }} class="govuk-notification-banner__title" id="{{ params.titleId | default('govuk-notification-banner-title') }}">
 {% if params.titleHtml | default(false) %}
       {{ params.titleHtml | raw }}
 {% elseif params.titleText | default(false) %}
