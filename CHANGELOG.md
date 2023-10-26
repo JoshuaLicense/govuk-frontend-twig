@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.7.2](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.7.1...v4.7.2) (2023-10-26)
+
+
+### Bug Fixes
+
+* improve debugging ([#48](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/48)) ([d713a1e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/d713a1efc1001af651bd7fc3ede761c200516a1f))
+
+
+### Miscellaneous Chores
+
+* apply linting on precommit hook ([#49](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/49)) ([1917db1](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/1917db181a998f8f0792ee563ddf55d6de41db3e))
+
 ## [4.7.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.7.0...v4.7.1) (2023-09-07)
 
 
