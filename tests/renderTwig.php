@@ -33,6 +33,12 @@ $twig = new Environment(
   ]
 );
 
-$html = $twig->render('test', ['params' => $stdin]);
+try {
+  $html = $twig->render('test', ['params' => $stdin]);
 
-echo $html;
+  echo $html;
+  exit(0);
+} catch (\Throwable $e) {
+  echo $e;
+  exit(1);
+}
