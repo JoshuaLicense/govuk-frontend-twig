@@ -25,16 +25,18 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
 };
 
 const renderTwigComponent = (component: string, context: unknown) => {
-  const { stdout: twigBuffer } = spawnSync(
+  const { stdout, status } = spawnSync(
     "php",
     [`${__dirname}/renderTwig.php`, component],
-    { input: JSON.stringify(context) },
+    { input: JSON.stringify(context), },
   );
 
-  const twig = twigBuffer.toString();
+  if (status !== 0) {
+    throw new Error(stdout.toString());
+  }
 
   // In Nunjucks: \ escapes to &#92. In Twig backslashes are not escaped.
-  return twig.replaceAll("\\", "&#92;");
+  return stdout.toString().replaceAll("\\", "&#92;");
 };
 
 describe.each(globalThis.components)(
@@ -43,7 +45,7 @@ describe.each(globalThis.components)(
     describe.each(componentFixture.fixtures)(
       `${componentFixture.component}`,
       (fixture) => {
-        it(`${fixture.name}`, () => {
+        it(`${fixture.name} with ${JSON.stringify(fixture.options)}`, () => {
           const njk = renderNunjucksComponent(
             componentFixture.component,
             fixture.options,
