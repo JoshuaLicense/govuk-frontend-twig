@@ -28,7 +28,7 @@ const renderTwigComponent = (component: string, context: unknown) => {
   const { stdout, status } = spawnSync(
     "php",
     [`${__dirname}/renderTwig.php`, component],
-    { input: JSON.stringify(context), },
+    { input: JSON.stringify(context) },
   );
 
   if (status !== 0) {
