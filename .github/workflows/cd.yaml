@@ -22,4 +22,4 @@ jobs:
         id: release
         with:
           release-type: php
-          package-name: govuk-frontend-twig
+          target-branch: ${{ github.ref_name }}
