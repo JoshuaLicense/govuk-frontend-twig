@@ -18,8 +18,8 @@ jobs:
       tag_name: ${{ steps.release.outputs.tag_name }}
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
-      - uses: google-github-actions/release-please-action@v3
+      - uses: google-github-actions/release-please-action@v4
         id: release
         with:
           release-type: php
-          package-name: govuk-frontend-twig
+          target-branch: ${{ github.ref_name }}
