@@ -6,7 +6,7 @@ import upperFirst from "lodash.upperfirst";
 const renderNunjucksComponent = (component: string, context: unknown) => {
   const stringContext = JSON.stringify(context, undefined, "  ");
 
-  const env = nunjucks.configure("node_modules/govuk-frontend/", {
+  const env = nunjucks.configure("node_modules/govuk-frontend/dist", {
     trimBlocks: true,
   });
 

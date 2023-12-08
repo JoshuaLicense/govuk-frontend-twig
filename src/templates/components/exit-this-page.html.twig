@@ -1,5 +1,9 @@
 {% macro govukExitThisPage(params) %}
-{% from "@govuk-frontend-twig/components/button.html.twig" import govukButton -%}
+{% from "@govuk-frontend-twig/components/button.html.twig" import govukButton %}
+
+{%- set defaultHtml %}
+  <span class="govuk-visually-hidden">Emergency</span> Exit this page
+{%- endset -%}
 
 <div
   {%- if params.id | default(false) %} id="{{ params.id }}"{% endif %} class="govuk-exit-this-page {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-exit-this-page" {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}
@@ -9,10 +13,13 @@
   {%- if params.pressOneMoreTimeText | default(false) %} data-i18n.press-one-more-time="{{ params.pressOneMoreTimeText | escape }}"{% endif %}
 >
   {{- govukButton({
-    html: params.html | default(null),
-    text: params.text | default("Exit this page"),
+    html: params.html is defined ? params.html : (params.text is defined ? null : defaultHtml),
+    text: params.text | default(null),
     classes: "govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button",
-    href: params.redirectUrl | default("https://www.bbc.co.uk/weather")
+    href: params.redirectUrl | default("https://www.bbc.co.uk/weather"),
+    attributes: {
+      rel: "nofollow noreferrer"
+    }
   }) -}}
 </div>
 {% endmacro %}

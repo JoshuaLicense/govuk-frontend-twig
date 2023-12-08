@@ -55,7 +55,7 @@
   {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif %}
   {%- if params.pattern | default(false) %} pattern="{{ params.pattern }}"{% endif %}
   {%- if params.inputmode | default(false) %} inputmode="{{ params.inputmode }}"{% endif %}
-  {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor -%}>
+  {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
 
   {%- if params.suffix.text | default(false) or params.suffix.html | default(false) -%}
     <div class="govuk-input__suffix {%- if params.suffix.classes | default(false) %} {{ params.suffix.classes }}{% endif %}" aria-hidden="true" {%- for attribute, value in params.suffix.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>

@@ -1,14 +1,39 @@
 {% macro govukAccordion(params) %}
-{% set id = params.id %}
-{% set headingLevel = params.headingLevel ?? 2 %}
+{% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes %}
 
-<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif -%}" data-module="govuk-accordion" id="{{ id }}"
-  {%- if params.hideAllSectionsText ?? false %} data-i18n.hide-all-sections="{{ params.hideAllSectionsText | escape }}"{% endif %}
-  {%- if params.hideSectionText ?? false %} data-i18n.hide-section="{{ params.hideSectionText | escape }}"{% endif %}
-  {%- if params.hideSectionAriaLabelText ?? false %} data-i18n.hide-section-aria-label="{{ params.hideSectionAriaLabelText | escape }}"{% endif %}
-  {%- if params.showAllSectionsText ?? false %} data-i18n.show-all-sections="{{ params.showAllSectionsText | escape }}"{% endif %}
-  {%- if params.showSectionText ?? false %} data-i18n.show-section="{{ params.showSectionText | escape }}"{% endif %}
-  {%- if params.showSectionAriaLabelText ?? false %} data-i18n.show-section-aria-label="{{ params.showSectionAriaLabelText | escape }}"{% endif %}
+{%- set id = params.id %}
+{% set headingLevel = params.headingLevel ?? 2 -%}
+
+<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-accordion" id="{{ id }}"
+  {{- govukI18nAttributes({
+    key: 'hide-all-sections',
+    message: params.hideAllSectionsText | default(null)
+  }) -}}
+
+  {{- govukI18nAttributes({
+    key: 'hide-section',
+    message: params.hideSectionText | default(null)
+  }) -}}
+
+  {{- govukI18nAttributes({
+    key: 'hide-section-aria-label',
+    message: params.hideSectionAriaLabelText | default(null)
+  }) -}}
+
+  {{- govukI18nAttributes({
+    key: 'show-all-sections',
+    message: params.showAllSectionsText | default(null)
+  }) -}}
+
+  {{- govukI18nAttributes({
+    key: 'show-section',
+    message: params.showSectionText | default(null)
+  }) -}}
+
+  {{- govukI18nAttributes({
+    key: 'show-section-aria-label',
+    message: params.showSectionAriaLabelText | default(null)
+  }) -}}
   {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   {% for item in params.items ?? [] %}

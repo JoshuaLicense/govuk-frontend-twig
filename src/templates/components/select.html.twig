@@ -1,5 +1,5 @@
 {% macro govukSelect(params) %}
-{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage -%}
+{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 {% from "@govuk-frontend-twig/components/label.html.twig" import govukLabel %}
 
@@ -45,10 +45,13 @@
     {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
   {% for item in params.items ?? [] %}
     {% if item %}
-      <option value="{{ item.value }}"
-        {{- item.selected is defined ? (item.selected == true ? " selected" : "") : (params.value | default(false) and item.value == params.value ? " selected" : "") }}
+      {# Allow selecting by text content (the value for an option when no value attribute is specified) #}
+
+      {% set effectiveValue = item.value | default(item.text) %}
+      <option {%- if item.value is defined %} value="{{ item.value is same as(true) or item.value is same as(false) ? (item.value ? 'true' : 'false') : item.value }}"{% endif %}
+        {{- item.selected is defined ? (item.selected == true ? " selected" : "") : ((params.value is defined and effectiveValue == params.value) and (item.selected is not defined or item.selected != false) ? " selected" : "") }}
         {{- item.disabled | default(false) ? " disabled" : "" }}
-        {%- for attribute, value in item.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor -%}>{{ item.text }}</option>
+        {%- for attribute, value in item.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>{{ item.text }}</option>
     {% endif %}
   {% endfor %}
   </select>

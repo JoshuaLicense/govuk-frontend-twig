@@ -1,12 +1,12 @@
 {% macro govukLabel(params) %}
 {% if params.html | default(false) or params.text | default(false) %}
 {% set labelHtml %}
-<label class="govuk-label{%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
+<label class="govuk-label {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}
   {%- if params.for | default(false) %} for="{{ params.for }}"{% endif %}>
   {{ params.html | default(false) ? params.html | raw : params.text }}
 </label>
-{% endset %}
+{% endset -%}
 
 {% if params.isPageHeading | default(false) %}
 <h1 class="govuk-label-wrapper">{{ labelHtml | raw }}</h1>

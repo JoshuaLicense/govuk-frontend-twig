@@ -1,5 +1,5 @@
 {% macro govukDateInput(params) %}
-{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage -%}
+{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage %}
 {% from "@govuk-frontend-twig/components/fieldset.html.twig" import govukFieldset %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 {% from "@govuk-frontend-twig/components/input.html.twig" import govukInput %}
@@ -8,7 +8,7 @@
    aria-describedby – for example hints or error messages -#}
 {% set describedBy = params.fieldset.describedBy | default() %}
 
-{% if params.items | default(false) %}
+{%- if params.items | default(false) %}
   {% set dateInputItems = params.items %}
 {% else %}
   {% set dateInputItems = [
@@ -75,7 +75,7 @@
     </div>
   {% endfor %}
   </div>
-{% endset %}
+{% endset -%}
 
 <div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}">
 {% if params.fieldset | default(false) %}
