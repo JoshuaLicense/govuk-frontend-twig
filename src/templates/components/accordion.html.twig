@@ -1,10 +1,10 @@
 {% macro govukAccordion(params) %}
 {% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes %}
 
-{% set id = params.id %}
-{% set headingLevel = params.headingLevel ?? 2 %}
+{%- set id = params.id %}
+{% set headingLevel = params.headingLevel ?? 2 -%}
 
-<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif -%}" data-module="govuk-accordion" id="{{ id }}"
+<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-accordion" id="{{ id }}"
   {{- govukI18nAttributes({
     key: 'hide-all-sections',
     message: params.hideAllSectionsText | default(null)

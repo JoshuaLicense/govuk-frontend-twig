@@ -6,7 +6,7 @@
   {% set classNames = "#{classNames} #{params.classes}" %}
 {% endif %}
 
-{# Determine type of element to use, if not explicitly set #}
+{#- Determine type of element to use, if not explicitly set #}
 {%- if params.element | default(false) %}
   {% set element = params.element | lower %}
 {% else %}
@@ -42,7 +42,8 @@ treat it as an interactive element - without this it will be
 {%- if element == 'a' %}
 <a href="{{ params.href | default(false) ? params.href : '#' }}" role="button" draggable="false" {{- commonAttributes | raw }}>
   {{ params.html | default(false) ? params.html | raw : params.text }}
-{% if iconHtml is defined %}{{- iconHtml | raw -}}{%- endif -%}
+{# Indentation is intentional to output HTML nicely #}
+{%- if iconHtml is defined %}{{- iconHtml | raw -}}{%- endif -%}
 </a>
 
 {%- elseif element == 'button' %}

@@ -38,8 +38,7 @@
   }) | trim | raw }}
 {% endif %}
   <div class="govuk-radios {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
-    {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}
-    data-module="govuk-radios">
+    {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %} data-module="govuk-radios">
     {% for item in params.items ?? [] %}
       {% if item %}
         {#- If the user explicitly sets an id, use this instead of the regular idPrefix -#}

@@ -1,16 +1,15 @@
 {% macro govukCharacterCount(params) %}
 {% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes %}
-
 {% from "@govuk-frontend-twig/components/textarea.html.twig" import govukTextarea %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 
-{%- set hasNoLimit = not (params.maxwords | default(false) or params.maxlength | default(false)) %}
+{%- set hasNoLimit = not (params.maxwords | default(false) or params.maxlength | default(false)) -%}
 
 <div class="govuk-character-count" data-module="govuk-character-count"
   {%- if params.maxlength | default(false) %} data-maxlength="{{ params.maxlength }}"{% endif %}
   {%- if params.threshold | default(false) %} data-threshold="{{ params.threshold }}"{% endif %}
   {%- if params.maxwords | default(false) %} data-maxwords="{{ params.maxwords }}"{% endif %}
-  {#
+  {#-
     Without maxlength or maxwords, we can't guess if the component will count words or characters.
     We can't guess a default textarea description to be interpolated in JavaScript
     once the maximum gets configured there.
@@ -76,7 +75,7 @@
   {%- set textareaDescriptionLength = params.maxwords | default(params.maxlength | default()) %}
   {%- set textareaUnit = params.maxwords | default(false) ? 'words' : 'characters' %}
   {%- set textareaDescriptionText = params.textareaDescriptionText | default("You can enter up to %{count} #{textareaUnit}") %}
-  {#
+  {#-
     If the limit is set in JavaScript, we won't be able to interpolate the message
     until JavaScript, so we only set a text if the `maxlength` or `maxwords` options
     were provided to the macro.

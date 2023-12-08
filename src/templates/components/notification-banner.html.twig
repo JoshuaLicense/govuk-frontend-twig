@@ -7,36 +7,32 @@
   {% set typeClass = "govuk-notification-banner--#{params.type}" %}
 {% endif %}
 
-{% if params.role | default(false) %}
+{%- if params.role | default(false) %}
   {% set role = params.role %}
-{% elseif successBanner | default(false) %}
-  {# If type is success, add `role="alert"` to prioritise the information in the notification banner to users of assistive technologies #}
-
+{%- elseif successBanner | default(false) %}
+  {#- If type is success, add `role="alert"` to prioritise the information in the notification banner to users of assistive technologies -#}
   {% set role = "alert" %}
-{% else %}
-  {# Otherwise add `role="region"` to make the notification banner a landmark to help users of assistive technologies to navigate to the banner #}
-
+{%- else %}
+  {#- Otherwise add `role="region"` to make the notification banner a landmark to help users of assistive technologies to navigate to the banner -#}
   {% set role = "region" %}
 {% endif %}
 
-{{- "  " -}} {#- To match GOVUK frontend whitespace -#}
+{%- if params.titleHtml | default(false) %}
+  {% set title = params.titleHtml %}
+{% elseif params.titleText | default(false) %}
+  {% set title = params.titleText | escape %}
+{% elseif successBanner | default(false) %}
+  {% set title = "Success" %}
+{% else %}
+  {% set title = "Important" %}
+{%- endif -%}
 
-<div class="govuk-notification-banner{% if typeClass | default(false) %} {{ typeClass }}{% endif %}{% if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="{{ role }}"
-  aria-labelledby="{{ params.titleId | default('govuk-notification-banner-title')}}"
-  data-module="govuk-notification-banner"
+<div class="govuk-notification-banner{% if typeClass | default(false) %} {{ typeClass }}{% endif %}{% if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="{{ role }}" aria-labelledby="{{ params.titleId | default('govuk-notification-banner-title')}}" data-module="govuk-notification-banner"
   {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   <div class="govuk-notification-banner__header">
     <h{{ params.titleHeadingLevel | default(2) }} class="govuk-notification-banner__title" id="{{ params.titleId | default('govuk-notification-banner-title') }}">
-{% if params.titleHtml | default(false) %}
-      {{ params.titleHtml | raw }}
-{% elseif params.titleText | default(false) %}
-      {{ params.titleText }}
-{% elseif successBanner | default(false) %}
-      {{ "Success" }}
-{% else %}
-      {{ "Important" }}
-{% endif %}
+      {{ title | raw }}
     </h{{ params.titleHeadingLevel | default(2) }}>
   </div>
   <div class="govuk-notification-banner__content">

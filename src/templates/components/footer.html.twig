@@ -1,7 +1,7 @@
 {% macro govukFooter(params) %}
-<footer class="govuk-footer {{ params.classes | default() }}" role="contentinfo"
+<footer class="govuk-footer {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="contentinfo"
         {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
-  <div class="govuk-width-container {{ params.containerClasses | default() }}">
+  <div class="govuk-width-container {%- if params.containerClasses | default(false) %} {{ params.containerClasses }}{% endif %}">
     {% if params.navigation | default(false) %}
       <div class="govuk-footer__navigation">
         {% for nav in params.navigation %}
@@ -9,11 +9,11 @@
             <h2 class="govuk-footer__heading govuk-heading-m">{{ nav.title }}</h2>
             {% if nav.items is defined and nav.items | length %}
               {% set listClasses %}
-                {% if nav.columns is defined %}
+                {%- if nav.columns is defined -%}
                   govuk-footer__list--columns-{{ nav.columns }}
-                {% endif %}
+                {%- endif -%}
               {% endset %}
-              <ul class="govuk-footer__list {{ listClasses | trim }}">
+              <ul class="govuk-footer__list {%- if listClasses | default(false) %} {{ listClasses }}{% endif %}">
                 {% for item in nav.items %}
                   {% if item.href is defined and item.text is defined %}
                     <li class="govuk-footer__list-item">

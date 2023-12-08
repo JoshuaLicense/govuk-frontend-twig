@@ -1,17 +1,12 @@
 {% macro govukCookieBanner(params) %}
 {% from "@govuk-frontend-twig/components/button.html.twig" import govukButton -%}
 
-<div class="govuk-cookie-banner {{ params.classes | default() }}" data-nosnippet role="region" aria-label="{{ params.ariaLabel | default("Cookie banner") }}"
+<div class="govuk-cookie-banner {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-nosnippet role="region" aria-label="{{ params.ariaLabel | default("Cookie banner") }}"
   {%- if params.hidden | default(false) %} hidden{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
 
   {%- for message in params.messages ?? [] %}
-    {% set classNames = "govuk-cookie-banner__message govuk-width-container" %}
-    {% if message.classes is defined %}
-      {% set classNames = "#{classNames} #{message.classes}" %}
-    {% endif %}
-
-    <div class="{{classNames}}" {%- if message.role is defined and message.role is not null %} role="{{message.role}}"{% endif %}
+    <div class="govuk-cookie-banner__message {%- if message.classes | default(false) %} {{ message.classes }}{% endif %} govuk-width-container" {%- if message.role is defined and message.role is not null %} role="{{message.role}}"{% endif %}
     {%- for attribute, value in message.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}
     {%- if message.hidden ?? false %} hidden{% endif %}>
 
@@ -50,11 +45,7 @@
                 "attributes": action.attributes | default(null)
               }) | trim | raw }}
             {% else %}
-              {% set linkClasses = "govuk-link" %}
-              {% if action.classes is defined and action.classes is not null %}
-                {% set linkClasses = "#{linkClasses} #{action.classes}" %}
-              {% endif %}
-              <a class="{{ linkClasses }}" href="{{ action.href }}" {%- for attribute, value in action.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ action.text }}</a>
+              <a class="govuk-link {%- if action.classes | default(false) %} {{ action.classes }}{% endif %}" href="{{ action.href }}" {%- for attribute, value in action.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ action.text }}</a>
             {% endif %}
           {% else %}
             {{ govukButton({

@@ -1,7 +1,7 @@
 {% macro govukExitThisPage(params) %}
-{% from "@govuk-frontend-twig/components/button.html.twig" import govukButton -%}
+{% from "@govuk-frontend-twig/components/button.html.twig" import govukButton %}
 
-{% set defaultHtml %}
+{%- set defaultHtml %}
   <span class="govuk-visually-hidden">Emergency</span> Exit this page
 {%- endset -%}
 
@@ -13,8 +13,8 @@
   {%- if params.pressOneMoreTimeText | default(false) %} data-i18n.press-one-more-time="{{ params.pressOneMoreTimeText | escape }}"{% endif %}
 >
   {{- govukButton({
-    text: params.text | default(null),
     html: params.html is defined ? params.html : (params.text is defined ? null : defaultHtml),
+    text: params.text | default(null),
     classes: "govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button",
     href: params.redirectUrl | default("https://www.bbc.co.uk/weather"),
     attributes: {
