@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.0.0...v5.1.0) (2024-02-07)
+
+
+### Features
+
+* upgrade `govuk-frontend` to`v5.1.0` ([#72](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/72)) ([bba9579](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/bba95799a35038d0fa24243df84973967bec335e))
+
 ## [5.0.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v4.7.2...v5.0.0) (2023-12-08)
 
 
