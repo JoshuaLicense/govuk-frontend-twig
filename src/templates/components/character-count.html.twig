@@ -72,6 +72,7 @@
     errorMessage: params.errorMessage | default(null),
     attributes: params.attributes | default(null)
   }) }}
+
   {%- set textareaDescriptionLength = params.maxwords | default(params.maxlength | default()) %}
   {%- set textareaUnit = params.maxwords | default(false) ? 'words' : 'characters' %}
   {%- set textareaDescriptionText = params.textareaDescriptionText | default("You can enter up to %{count} #{textareaUnit}") %}
@@ -89,6 +90,6 @@
     text: hasNoLimit ? null : textareaDescriptionText | replace({'%{count}': textareaDescriptionLength}),
     id: "#{params.id}-info",
     classes: countMessageClassNames
-  }) }}
+  }) | trim | raw }}
 </div>
 {% endmacro %}
