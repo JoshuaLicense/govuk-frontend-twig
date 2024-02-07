@@ -8,24 +8,26 @@
 
   <div role="alert">
     <h2 class="govuk-error-summary__title">
-      {{ params.titleHtml | default(false) ? params.titleHtml | raw : params.titleText }}
+      {{ params.titleHtml | default(false) ? params.titleHtml | trim | raw : params.titleText }}
     </h2>
     <div class="govuk-error-summary__body">
       {% if params.descriptionHtml | default(false) or params.descriptionText | default(false) %}
-        <p>
-          {{ params.descriptionHtml | default(false) ? params.descriptionHtml | raw : params.descriptionText }}
-        </p>
+      <p>
+        {{ params.descriptionHtml | default(false) ? params.descriptionHtml | trim | raw : params.descriptionText }}
+      </p>
       {% endif %}
       <ul class="govuk-list govuk-error-summary__list">
-        {% for item in params.errorList ?? [] %}
-          <li>
-          {% if item.href is defined and item.href is not null %}
-            <a href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ item.html is defined and item.html is not null ? item.html | raw : item.text }}</a>
-          {% else %}
-            {{ item.html is defined and item.html is not null ? item.html | raw : item.text }}
-          {% endif %}
-          </li>
-        {% endfor %}
+      {% for item in params.errorList ?? [] %}
+        <li>
+        {% if item.href is defined and item.href is not null %}
+          <a href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+            {{- item.html is defined and item.html is not null ? item.html | trim | raw : item.text -}}
+          </a>
+        {% else %}
+          {{ item.html is defined and item.html is not null ? item.html | trim | raw : item.text }}
+        {% endif %}
+        </li>
+      {% endfor %}
       </ul>
     </div>
   </div>

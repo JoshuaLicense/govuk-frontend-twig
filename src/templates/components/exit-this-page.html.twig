@@ -3,7 +3,7 @@
 
 {%- set defaultHtml %}
   <span class="govuk-visually-hidden">Emergency</span> Exit this page
-{%- endset -%}
+{% endset -%}
 
 <div
   {%- if params.id | default(false) %} id="{{ params.id }}"{% endif %} class="govuk-exit-this-page {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-exit-this-page" {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}
@@ -12,7 +12,7 @@
   {%- if params.pressTwoMoreTimesText | default(false) %} data-i18n.press-two-more-times="{{ params.pressTwoMoreTimesText | escape }}"{% endif %}
   {%- if params.pressOneMoreTimeText | default(false) %} data-i18n.press-one-more-time="{{ params.pressOneMoreTimeText | escape }}"{% endif %}
 >
-  {{- govukButton({
+  {{ govukButton({
     html: params.html is defined ? params.html : (params.text is defined ? null : defaultHtml),
     text: params.text | default(null),
     classes: "govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button",
@@ -20,6 +20,6 @@
     attributes: {
       rel: "nofollow noreferrer"
     }
-  }) -}}
+  }) | trim | raw }}
 </div>
 {% endmacro %}

@@ -1,10 +1,34 @@
 {% macro govukAccordion(params) %}
 {% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes %}
 
-{%- set id = params.id %}
-{% set headingLevel = params.headingLevel ?? 2 -%}
+{%- macro _accordionItem(params, item, index) %}
+  {% set headingLevel = params.headingLevel ?? 2 -%}
+  <div class="govuk-accordion__section {%- if item.expanded ?? false %} govuk-accordion__section--expanded{% endif %}">
+    <div class="govuk-accordion__section-header">
+      <h{{ headingLevel }} class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="{{ params.id }}-heading-{{ index }}">
+          {{ item.heading.html is defined and item.heading.html is not null ? item.heading.html | trim | raw : item.heading.text }}
+        </span>
+      </h{{ headingLevel }}>
+      {% if item.summary.html is defined or item.summary.text is defined %}
+      <div class="govuk-accordion__section-summary govuk-body" id="{{ params.id }}-summary-{{ index }}">
+        {{ item.summary.html is defined and item.summary.html is not null ? item.summary.html | trim | raw : item.summary.text }}
+      </div>
+      {% endif %}
+    </div>
+    <div id="{{ params.id }}-content-{{ index }}" class="govuk-accordion__section-content">
+    {% if item.content.html is defined and item.content.html is not null %}
+      {{ item.content.html | trim | raw }}
+    {% elseif item.content.text is defined and item.content.text is not null %}
+      <p class="govuk-body">
+        {{ item.content.text | trim }}
+      </p>
+    {% endif %}
+    </div>
+  </div>
+{% endmacro -%}
 
-<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-accordion" id="{{ id }}"
+<div class="govuk-accordion {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-accordion" id="{{ params.id }}"
   {{- govukI18nAttributes({
     key: 'hide-all-sections',
     message: params.hideAllSectionsText | default(null)
@@ -37,29 +61,7 @@
   {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif %}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   {% for item in params.items ?? [] %}
-    {% if item %}
-      <div class="govuk-accordion__section {%- if item.expanded ?? false %} govuk-accordion__section--expanded{% endif %}">
-        <div class="govuk-accordion__section-header">
-          <h{{ headingLevel }} class="govuk-accordion__section-heading">
-            <span class="govuk-accordion__section-button" id="{{ id }}-heading-{{ loop.index }}">
-              {{ item.heading.html is defined and item.heading.html is not null ? item.heading.html | raw : item.heading.text }}
-            </span>
-          </h{{ headingLevel }}>
-          {% if item.summary.html is defined or item.summary.text is defined %}
-            <div class="govuk-accordion__section-summary govuk-body" id="{{ id }}-summary-{{ loop.index }}">
-              {{ item.summary.html is defined and item.summary.html is not null ? item.summary.html | raw : item.summary.text }}
-            </div>
-          {% endif %}
-        </div>
-        <div id="{{ id }}-content-{{ loop.index }}" class="govuk-accordion__section-content" aria-labelledby="{{ id }}-heading-{{ loop.index }}">
-          {% if item.content.html is defined and item.content.html is not null %}
-            {{ item.content.html | raw }}
-          {% elseif item.content.text is defined and item.content.text is not null %}
-            <p class="govuk-body">{{ item.content.text }}</p>
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
+    {% if item %}{{ _self._accordionItem(params, item, loop.index) }}{% endif %}
   {% endfor %}
 </div>
 {% endmacro %}

@@ -9,9 +9,11 @@
 {% endset -%}
 
 {% if params.isPageHeading | default(false) %}
-<h1 class="govuk-label-wrapper">{{ labelHtml | raw }}</h1>
+<h1 class="govuk-label-wrapper">
+  {{ labelHtml | trim | raw }}
+</h1>
 {% else %}
-{{ labelHtml | raw }}
+{{ labelHtml | trim | raw }}
 {% endif %}
 {% endif %}
 {% endmacro %}
