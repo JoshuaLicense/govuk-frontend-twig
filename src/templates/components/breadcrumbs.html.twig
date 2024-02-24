@@ -1,29 +1,29 @@
 {% macro govukBreadcrumbs(params) %}
 {%- set classNames = "govuk-breadcrumbs" -%}
 
-{% if params.classes | default(false) %}
-  {% set classNames = "#{classNames} #{params.classes}" %}
-{% endif -%}
+{%- if params.classes | default(false) ~%}
+  {%- set classNames = "#{classNames} #{params.classes}" ~%}
+{%- endif -%}
 
-{% if params.collapseOnMobile ?? false %}
-  {% set classNames = "#{classNames} govuk-breadcrumbs--collapse-on-mobile" %}
-{% endif -%}
+{%- if params.collapseOnMobile ?? false ~%}
+  {%- set classNames = "#{classNames} govuk-breadcrumbs--collapse-on-mobile" ~%}
+{%- endif -%}
 
 <div class="{{classNames}}"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   <ol class="govuk-breadcrumbs__list">
-{% for item in params.items ?? [] %}
-  {% if item.href is defined and item.href is not null %}
+{%- for item in params.items ?? [] ~%}
+  {%- if item.href is defined and item.href is not null ~%}
     <li class="govuk-breadcrumbs__list-item">
       <a class="govuk-breadcrumbs__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
         {{- item.html is defined and item.html is not null ? item.html | raw : item.text -}}
       </a>
     </li>
-  {% else %}
+  {%- else ~%}
     <li class="govuk-breadcrumbs__list-item" aria-current="page">
       {{- item.html is defined and item.html is not null ? item.html | raw : item.text -}}
     </li>
-  {% endif %}
-{% endfor %}
+  {%- endif ~%}
+{%- endfor ~%}
   </ol>
 </div>
 {% endmacro %}

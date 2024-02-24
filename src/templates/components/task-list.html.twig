@@ -4,30 +4,30 @@
 {%- set idPrefix = params.idPrefix | default("task-list") -%}
 
 <ul class="govuk-task-list {%- if params.classes ?? [] %} {{ params.classes }}{% endif %}" {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
-  {% for item in params.items ?? [] %}
-    {%- set hintId = idPrefix ~ "-" ~ loop.index ~ "-hint" -%}
-    {%- set statusId = idPrefix ~ "-" ~ loop.index ~ "-status" -%}
+  {%- for item in params.items ?? [] ~%}
+    {%- set hintId = idPrefix ~ "-" ~ loop.index ~ "-hint" ~%}
+    {%~ set statusId = idPrefix ~ "-" ~ loop.index ~ "-status" -%}
     <li class="govuk-task-list__item {%- if item.href is defined %} govuk-task-list__item--with-link{% endif %}{%- if item.classes ?? [] %} {{ item.classes }}{% endif %}">
       <div class="govuk-task-list__name-and-hint">
-        {% if item.href is defined %}
+        {%- if item.href is defined ~%}
           <a class="govuk-link govuk-task-list__link {%- if item.title.classes ?? [] %} {{ item.title.classes }}{% endif %}" href="{{ item.href }}" aria-describedby="{{ item.hint | default(false) ? (hintId ~ ' ') : '' }}{{ statusId }}">{{ item.title.html | default(false) ? item.title.html | raw : item.title.text }}</a>
-        {% else %}
+        {%- else ~%}
           <div {%- if item.title.classes ?? [] %} class="{{ item.title.classes }}"{% endif %}>{{ item.title.html | default(false) ? item.title.html | raw : item.title.text }}</div>
-        {% endif %}
-        {% if item.hint is defined %}
+        {%- endif ~%}
+        {%- if item.hint is defined ~%}
           <div id="{{ hintId }}" class="govuk-task-list__hint">
             {{ item.hint.html | default(false) ? item.hint.html | raw : item.hint.text }}
           </div>
-        {% endif %}
+        {%- endif ~%}
       </div>
       <div class="govuk-task-list__status {%- if item.status.classes ?? [] %} {{ item.status.classes }}{% endif %}" id="{{ statusId }}">
-        {% if item.status.tag is defined %}
+        {%- if item.status.tag is defined ~%}
           {{ govukTag(item.status.tag) | trim | raw }}
-        {% else %}
+        {%- else ~%}
           {{ item.status.html | default(false) ? item.status.html | raw : item.status.text }}
-        {% endif %}
+        {%- endif ~%}
       </div>
     </li>
-  {% endfor %}
+  {%- endfor ~%}
 </ul>
 {% endmacro %}

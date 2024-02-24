@@ -14,8 +14,8 @@
   @param {string} [params.message] - Translation text, singular
   @param {{ [pluralRule: string]: string }} [params.messages] - Translation text by corresponding plural rule (optional, overrides params.message)
 #}
-{% macro govukI18nAttributes(params) %}
+{%- macro govukI18nAttributes(params) ~%}
   {%- if params.messages | default(false) -%}
-    {% for pluralRule, message in params.messages %} data-i18n.{{ params.key }}.{{ pluralRule }}="{{ message | escape }}"{% endfor %}
-  {% elseif params.message | default(false) %} data-i18n.{{ params.key }}="{{ params.message | escape }}"{% endif -%}
+    {%- for pluralRule, message in params.messages %} data-i18n.{{ params.key }}.{{ pluralRule }}="{{ message | escape }}"{% endfor ~%}
+  {%- elseif params.message | default(false) %} data-i18n.{{ params.key }}="{{ params.message | escape }}"{% endif -%}
 {% endmacro %}

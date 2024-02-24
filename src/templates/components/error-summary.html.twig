@@ -1,7 +1,7 @@
 {% macro govukErrorSummary(params) %}
 <div class="govuk-error-summary
   {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
-  {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif %}
+  {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif ~%}
   {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %} data-module="govuk-error-summary">
   {#- Keep the role="alert" in a seperate child container to prevent a race condition between
   the focusing js at the alert, resulting in information getting missed in screen reader announcements #}
@@ -11,23 +11,23 @@
       {{ params.titleHtml | default(false) ? params.titleHtml | trim | raw : params.titleText }}
     </h2>
     <div class="govuk-error-summary__body">
-      {% if params.descriptionHtml | default(false) or params.descriptionText | default(false) %}
+      {%- if params.descriptionHtml | default(false) or params.descriptionText | default(false) ~%}
       <p>
         {{ params.descriptionHtml | default(false) ? params.descriptionHtml | trim | raw : params.descriptionText }}
       </p>
-      {% endif %}
+      {%- endif ~%}
       <ul class="govuk-list govuk-error-summary__list">
-      {% for item in params.errorList ?? [] %}
+      {%- for item in params.errorList ?? [] ~%}
         <li>
-        {% if item.href is defined and item.href is not null %}
+        {%- if item.href is defined and item.href is not null ~%}
           <a href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
             {{- item.html is defined and item.html is not null ? item.html | trim | raw : item.text -}}
           </a>
-        {% else %}
+        {%- else ~%}
           {{ item.html is defined and item.html is not null ? item.html | trim | raw : item.text }}
-        {% endif %}
+        {%- endif ~%}
         </li>
-      {% endfor %}
+      {%- endfor ~%}
       </ul>
     </div>
   </div>
