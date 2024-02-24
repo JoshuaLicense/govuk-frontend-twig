@@ -1,11 +1,11 @@
 {% macro govukFileUpload(params) %}
-{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage -%}
+{% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 {% from "@govuk-frontend-twig/components/label.html.twig" import govukLabel %}
 
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
-{% set describedBy = params.describedBy | default(null) %}
+{%- set describedBy = params.describedBy | default(null) -%}
 <div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}" {%- for attribute, value in params.formGroup.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
   {{ govukLabel({
     html: params.label.html | default(null),
@@ -15,9 +15,9 @@
     attributes: params.label.attributes | default(null),
     for: params.id | default(null)
   }) | trim | raw}}
-{% if params.hint | default(false) %}
-  {% set hintId = "#{params.id}-hint" %}
-  {% set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" %}
+{%- if params.hint | default(false) ~%}
+  {%- set hintId = "#{params.id}-hint" ~%}
+  {%- set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" ~%}
   {{ govukHint({
     id: hintId,
     classes: params.hint.classes | default(null),
@@ -25,10 +25,10 @@
     html: params.hint.html | default(null),
     text: params.hint.text | default(null)
   }) | trim | raw}}
-{% endif %}
-{% if params.errorMessage | default(false) %}
-  {% set errorId = "#{params.id}-error" %}
-  {% set describedBy = describedBy is empty ? errorId : "#{describedBy} #{errorId}" %}
+{%- endif ~%}
+{%- if params.errorMessage | default(false) ~%}
+  {%- set errorId = "#{params.id}-error" ~%}
+  {%- set describedBy = describedBy is empty ? errorId : "#{describedBy} #{errorId}" ~%}
   {{ govukErrorMessage({
     id: errorId,
     classes: params.errorMessage.classes | default(null),
@@ -37,11 +37,11 @@
     text: params.errorMessage.text | default(null),
     visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
   }) | trim | raw}}
-{% endif %}
+{%- endif ~%}
   <input class="govuk-file-upload {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-file-upload--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" type="file"
-  {%- if params.value | default(false) %} value="{{ params.value }}"{% endif %}
-  {%- if params.disabled | default(false) %} disabled{% endif %}
-  {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif %}
+  {%- if params.value | default(false) %} value="{{ params.value }}"{% endif ~%}
+  {%- if params.disabled | default(false) %} disabled{% endif ~%}
+  {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif ~%}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
 </div>
 {% endmacro %}

@@ -1,22 +1,22 @@
 {% macro govukFieldset(params) %}
 <fieldset class="govuk-fieldset
   {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
-  {%- if params.role | default(false) %} role="{{ params.role }}"{% endif %}
-  {%- if params.describedBy | default(false) %} aria-describedby="{{ params.describedBy }}"{% endif %}
+  {%- if params.role | default(false) %} role="{{ params.role }}"{% endif ~%}
+  {%- if params.describedBy | default(false) %} aria-describedby="{{ params.describedBy }}"{% endif ~%}
   {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
-  {% if params.legend.html | default(false) or params.legend.text | default(false) %}
+  {%- if params.legend.html | default(false) or params.legend.text | default(false) ~%}
   <legend class="govuk-fieldset__legend {%- if params.legend.classes | default(false) %} {{ params.legend.classes }}{% endif %}">
-  {% if params.legend.isPageHeading | default(false) %}
+  {%- if params.legend.isPageHeading | default(false) ~%}
     <h1 class="govuk-fieldset__heading">
       {{ params.legend.html | default(false) ? params.legend.html | trim | raw : params.legend.text }}
     </h1>
-  {% else %}
+  {%- else ~%}
     {{ params.legend.html | default(false) ? params.legend.html | trim | raw : params.legend.text }}
-  {% endif %}
+  {%- endif ~%}
   </legend>
-  {% endif %}
-{% if params.html | default(false) %}
+  {%- endif ~%}
+{%- if params.html | default(false) ~%}
   {{ params.html | raw }}
-{% endif %}
+{%- endif ~%}
 </fieldset>
 {% endmacro %}

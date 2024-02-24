@@ -2,26 +2,26 @@
 {# Set classes for this component #}
 {%- set classNames = "govuk-button" -%}
 
-{%- if params.classes | default(false) %}
-  {% set classNames = "#{classNames} #{params.classes}" %}
-{% endif %}
+{%- if params.classes | default(false) ~%}
+  {%- set classNames = "#{classNames} #{params.classes}" ~%}
+{%- endif ~%}
 
-{%- if params.isStartButton | default(false) %}
-  {% set classNames = "#{classNames} govuk-button--start" %}
-{% endif %}
+{%- if params.isStartButton | default(false) ~%}
+  {%- set classNames = "#{classNames} govuk-button--start" ~%}
+{%- endif ~%}
 
 {#- Determine type of element to use, if not explicitly set #}
-{%- if params.element | default(false) %}
-  {% set element = params.element | lower %}
-{% else %}
-  {% if params.href | default(false) %}
-    {% set element = 'a' %}
-  {% else %}
-    {% set element = 'button' %}
-  {% endif %}
-{% endif -%}
+{%- if params.element | default(false) ~%}
+  {%- set element = params.element | lower ~%}
+{%- else ~%}
+  {%- if params.href | default(false) ~%}
+    {%- set element = 'a' ~%}
+  {%- else ~%}
+    {%- set element = 'button' ~%}
+  {%- endif ~%}
+{%- endif -%}
 
-{%- macro _startIcon() %}
+{%- macro _startIcon() ~%}
   {#- The SVG needs `focusable="false"` so that Internet Explorer does not
   treat it as an interactive element - without this it will be
   'focusable' when using the keyboard to navigate. #}
@@ -33,11 +33,11 @@
 
 {#- Define common attributes that we can use across all element types #}
 
-{%- set commonAttributes %} class="{{ classNames }}" data-module="govuk-button"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}{% if params.id | default(false) %} id="{{ params.id }}"{% endif %}{% endset %}
+{%- set commonAttributes %} class="{{ classNames }}" data-module="govuk-button"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}{% if params.id | default(false) %} id="{{ params.id }}"{% endif %}{% endset ~%}
 
 {#- Define common attributes we can use for both button and input types #}
 
-{%- set buttonAttributes %}{% if params.name | default(false) %} name="{{ params.name }}"{% endif %}{% if params.disabled ?? false %} disabled aria-disabled="true"{% endif %}{% if params.preventDoubleClick is defined %} data-prevent-double-click="{{params.preventDoubleClick ? 'true' : 'false' }}"{% endif %}{% endset %}
+{%- set buttonAttributes %}{% if params.name | default(false) %} name="{{ params.name }}"{% endif %}{% if params.disabled ?? false %} disabled aria-disabled="true"{% endif %}{% if params.preventDoubleClick is defined %} data-prevent-double-click="{{params.preventDoubleClick ? 'true' : 'false' }}"{% endif %}{% endset ~%}
 
 {#- Actually create a button... or a link! #}
 
@@ -46,13 +46,11 @@
   {{ params.html | default(false) ? params.html | trim | raw : params.text }}
   {{- params.isStartButton | default(false) ? _self._startIcon() | raw : '' }}
 </a>
-
 {%- elseif element == 'button' %}
 <button {%- if params.value | default(false) %} value="{{ params.value }}"{% endif %} type="{{ params.type | default("submit") }}" {{- buttonAttributes | raw }} {{- commonAttributes | raw }}>
   {{ params.html | default(false) ? params.html | trim | raw : params.text }}
   {{- params.isStartButton | default(false) ? _self._startIcon() | raw : '' }}
 </button>
-
 {%- elseif element == 'input' %}
 <input value="{{ params.text }}" type="{{ params.type ?? 'submit' }}" {{- buttonAttributes | raw }} {{- commonAttributes | raw }}>
 {%- endif %}

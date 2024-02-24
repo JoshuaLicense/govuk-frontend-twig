@@ -1,11 +1,11 @@
 {% macro govukErrorMessage(params) %}
-{% set visuallyHiddenText = params.visuallyHiddenText is defined and params.visuallyHiddenText is not null ? params.visuallyHiddenText : "Error" -%}
+{%- set visuallyHiddenText = params.visuallyHiddenText is defined and params.visuallyHiddenText is not null ? params.visuallyHiddenText : "Error" -%}
 
 <p {%- if params.id | default(false) %} id="{{ params.id }}"{% endif %} class="govuk-error-message{%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor -%}>
-  {% if visuallyHiddenText | default(false) %}
+  {%- if visuallyHiddenText | default(false) ~%}
   <span class="govuk-visually-hidden">{{ visuallyHiddenText }}:</span> {{ params.html | default(false) ? params.html | trim | raw : params.text }}
-  {% else %}
+  {%- else ~%}
   {{ params.html | default(false) ? params.html | trim | raw : params.text }}
-  {% endif %}
+  {%- endif ~%}
 </p>
 {% endmacro %}

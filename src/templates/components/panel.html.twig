@@ -1,15 +1,15 @@
 {% macro govukPanel(params) %}
-{% set headingLevel = params.headingLevel | default(1) %}
+{%- set headingLevel = params.headingLevel | default(1) %}
 <div class="govuk-panel govuk-panel--confirmation
   {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
   <h{{ headingLevel }} class="govuk-panel__title">
     {{ params.titleHtml | default(false) ? params.titleHtml | raw : params.titleText }}
   </h{{ headingLevel }}>
-  {% if params.html | default(false) or params.text | default(false) %}
+  {%- if params.html | default(false) or params.text | default(false) ~%}
   <div class="govuk-panel__body">
     {{ params.html | default(false) ? params.html | raw : params.text }}
   </div>
-  {% endif %}
+  {%- endif ~%}
 </div>
 {% endmacro %}

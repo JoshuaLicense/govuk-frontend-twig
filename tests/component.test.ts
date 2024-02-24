@@ -8,6 +8,7 @@ const renderNunjucksComponent = (component: string, context: unknown) => {
 
   const env = nunjucks.configure("node_modules/govuk-frontend/dist", {
     trimBlocks: true,
+    lstripBlocks: true,
   });
 
   // Overwrite `indent` filter to avoid whitespace differences in tests.

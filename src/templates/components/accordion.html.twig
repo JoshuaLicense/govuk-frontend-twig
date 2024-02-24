@@ -10,20 +10,20 @@
           {{ item.heading.html is defined and item.heading.html is not null ? item.heading.html | trim | raw : item.heading.text }}
         </span>
       </h{{ headingLevel }}>
-      {% if item.summary.html is defined or item.summary.text is defined %}
+      {%- if item.summary.html is defined or item.summary.text is defined ~%}
       <div class="govuk-accordion__section-summary govuk-body" id="{{ params.id }}-summary-{{ index }}">
         {{ item.summary.html is defined and item.summary.html is not null ? item.summary.html | trim | raw : item.summary.text }}
       </div>
-      {% endif %}
+      {%- endif ~%}
     </div>
     <div id="{{ params.id }}-content-{{ index }}" class="govuk-accordion__section-content">
-    {% if item.content.html is defined and item.content.html is not null %}
+    {%- if item.content.html is defined and item.content.html is not null ~%}
       {{ item.content.html | trim | raw }}
-    {% elseif item.content.text is defined and item.content.text is not null %}
+    {%- elseif item.content.text is defined and item.content.text is not null ~%}
       <p class="govuk-body">
         {{ item.content.text | trim }}
       </p>
-    {% endif %}
+    {%- endif ~%}
     </div>
   </div>
 {% endmacro -%}
@@ -58,10 +58,10 @@
     key: 'show-section-aria-label',
     message: params.showSectionAriaLabelText | default(null)
   }) -}}
-  {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif %}
+  {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif -%}
   {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
-  {% for item in params.items ?? [] %}
-    {% if item %}{{ _self._accordionItem(params, item, loop.index) }}{% endif %}
-  {% endfor %}
+  {%~ for item in params.items ?? [] %}
+    {%- if item %}{{ _self._accordionItem(params, item, loop.index) }}{% endif -%}
+  {%- endfor %}
 </div>
 {% endmacro %}
