@@ -1,7 +1,8 @@
 {% macro govukWarningText(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 <div class="govuk-warning-text {{- params.classes | default(false) ? ' ' ~ params.classes : '' }}"
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor -%}
-  >
+  {{- govukAttributes(params.attributes ?? []) }}>
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">{{ params.iconFallbackText | default("Warning") }}</span>

@@ -1,4 +1,5 @@
 {% macro govukTextarea(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
 {% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 {% from "@govuk-frontend-twig/components/label.html.twig" import govukLabel %}
@@ -6,7 +7,7 @@
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
 {%- set describedBy = params.describedBy | default("") -%}
-<div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}" {%- for attribute, value in params.formGroup.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
+<div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}" {{- govukAttributes(params.formGroup.attributes ?? []) }}>
   {{ govukLabel({
     html: params.label.html | default(null),
     text: params.label.text | default(null),
@@ -43,6 +44,6 @@
   {%- if params.disabled | default(false) %} disabled{% endif ~%}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif ~%}
   {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif ~%}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ params.value | default() }}</textarea>
+  {{- govukAttributes(params.attributes ?? []) }}>{{ params.value | default() }}</textarea>
 </div>
 {% endmacro %}

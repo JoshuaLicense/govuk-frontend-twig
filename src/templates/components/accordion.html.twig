@@ -1,5 +1,6 @@
 {% macro govukAccordion(params) %}
 {% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes %}
 
 {%- macro _accordionItem(params, item, index) %}
   {% set headingLevel = params.headingLevel ?? 2 -%}
@@ -59,7 +60,7 @@
     message: params.showSectionAriaLabelText | default(null)
   }) -}}
   {%- if params.rememberExpanded is defined %} data-remember-expanded="{{ params.rememberExpanded ? 'true' : 'false' }}"{% endif -%}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+  {{- govukAttributes(params.attributes ?? []) }}>
   {%~ for item in params.items ?? [] %}
     {%- if item %}{{ _self._accordionItem(params, item, loop.index) }}{% endif -%}
   {%- endfor %}

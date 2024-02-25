@@ -1,4 +1,6 @@
 {% macro govukButton(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 {# Set classes for this component #}
 {%- set classNames = "govuk-button" -%}
 
@@ -33,7 +35,7 @@
 
 {#- Define common attributes that we can use across all element types #}
 
-{%- set commonAttributes %} class="{{ classNames }}" data-module="govuk-button"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}{% if params.id | default(false) %} id="{{ params.id }}"{% endif %}{% endset ~%}
+{%- set commonAttributes %} class="{{ classNames }}" data-module="govuk-button" {{- govukAttributes(params.attributes ?? []) }}{% if params.id | default(false) %} id="{{ params.id }}"{% endif %}{% endset ~%}
 
 {#- Define common attributes we can use for both button and input types #}
 

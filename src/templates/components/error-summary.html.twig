@@ -1,8 +1,10 @@
 {% macro govukErrorSummary(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 <div class="govuk-error-summary
   {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif ~%}
-  {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %} data-module="govuk-error-summary">
+  {{- govukAttributes(params.attributes ?? []) }} data-module="govuk-error-summary">
   {#- Keep the role="alert" in a seperate child container to prevent a race condition between
   the focusing js at the alert, resulting in information getting missed in screen reader announcements #}
 
@@ -20,7 +22,8 @@
       {%- for item in params.errorList ?? [] ~%}
         <li>
         {%- if item.href is defined and item.href is not null ~%}
-          <a href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+          <a href="{{ item.href }}"
+          {{- govukAttributes(item.attributes ?? []) }}>
             {{- item.html is defined and item.html is not null ? item.html | trim | raw : item.text -}}
           </a>
         {%- else ~%}
