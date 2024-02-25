@@ -1,65 +1,59 @@
 {% macro govukCookieBanner(params) %}
 {% from "@govuk-frontend-twig/components/button.html.twig" import govukButton -%}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
 
 <div class="govuk-cookie-banner {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-nosnippet role="region" aria-label="{{ params.ariaLabel | default("Cookie banner") }}"
   {%- if params.hidden | default(false) %} hidden{% endif %}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
-
-  {%- for message in params.messages ?? [] %}
-    <div class="govuk-cookie-banner__message {%- if message.classes | default(false) %} {{ message.classes }}{% endif %} govuk-width-container" {%- if message.role is defined and message.role is not null %} role="{{message.role}}"{% endif ~%}
-    {%- for attribute, value in message.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor ~%}
+  {{- govukAttributes(params.attributes ?? []) }}>
+  {%~ for message in params.messages ?? [] %}
+  <div class="govuk-cookie-banner__message {%- if message.classes | default(false) %} {{ message.classes }}{% endif %} govuk-width-container" {%- if message.role is defined and message.role is not null %} role="{{message.role}}"{% endif ~%}
+    {{- govukAttributes(message.attributes ?? []) }}
     {%- if message.hidden ?? false %} hidden{% endif %}>
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         {%- if message.headingHtml is defined or message.headingText is defined ~%}
         <h2 class="govuk-cookie-banner__heading govuk-heading-m">
-          {%- if message.headingHtml is defined and message.headingHtml is not null -%}
-            {{ message.headingHtml | raw }}
-          {%- else -%}
-            {{ message.headingText }}
-          {%- endif -%}
+        {%- if message.headingHtml is defined and message.headingHtml is not null ~%}
+          {{ message.headingHtml | trim | raw }}
+        {%- else ~%}
+          {{ message.headingText | trim }}
+        {%- endif ~%}
         </h2>
         {%- endif ~%}
-
         <div class="govuk-cookie-banner__content">
-          {%- if message.html is defined and message.html is not null -%}
-            {{ message.html | raw }}
-          {%- elseif message.text is defined and message.text is not null -%}
-            <p class="govuk-body">{{ message.text }}</p>
-          {%- endif -%}
+        {%- if message.html is defined and message.html is not null ~%}
+          {{ message.html | trim | raw }}
+        {%- elseif message.text is defined and message.text is not null ~%}
+          <p class="govuk-body">{{ message.text }}</p>
+        {%- endif ~%}
         </div>
       </div>
     </div>
     {%~ if message.actions is defined and message.actions is not null ~%}
-      <div class="govuk-button-group">
-        {%- for action in message.actions ~%}
-          {%- if action.href is defined and action.href is not null ~%}
-            {%- if action.type is defined and action.type == "button" ~%}
-              {{ govukButton({
-                "text": action.text,
-                "type": "button",
-                "classes": action.classes | default(null),
-                "href": action.href,
-                "attributes": action.attributes | default(null)
-              }) | trim | raw }}
-            {%- else ~%}
-              <a class="govuk-link {%- if action.classes | default(false) %} {{ action.classes }}{% endif %}" href="{{ action.href }}" {%- for attribute, value in action.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>{{ action.text }}</a>
-            {%- endif ~%}
-          {%- else ~%}
-            {{ govukButton({
-              "text": action.text,
-              "value": action.value | default(null),
-              "name": action.name | default(null),
-              "type": action.type | default(null),
-              "classes": action.classes | default(null),
-              "attributes": action.attributes | default(null)
-            }) | trim | raw }}
-          {%- endif ~%}
-        {%- endfor ~%}
-      </div>
-    {%- endif ~%}
+    <div class="govuk-button-group">
+    {%- for action in message.actions ~%}
+      {%- set buttonHtml -%}
+        {%- if (not action.href | default(false)) or (action.type is defined and action.type == "button") ~%}
+          {{ govukButton({
+            "text": action.text | default(null),
+            "value": action.value | default(null),
+            "name": action.name | default(null),
+            "type": action.type | default(false) ? action.type : "button",
+            "classes": action.classes | default(null),
+            "href": action.href | default(null),
+            "attributes": action.attributes | default(null)
+          }) | trim | raw }}
+        {%- else ~%}
+          <a class="govuk-link {%- if action.classes | default(false) %} {{ action.classes }}{% endif %}" href="{{ action.href }}" {{- govukAttributes(action.attributes ?? []) }}>{{ action.text }}</a>
+        {%- endif ~%}
+      {%- endset ~%}
+      {{ buttonHtml | trim | raw }}
+    {%- endfor ~%}
     </div>
+    {%- endif ~%}
+
+  </div>
   {%~ endfor %}
 </div>
 {% endmacro %}

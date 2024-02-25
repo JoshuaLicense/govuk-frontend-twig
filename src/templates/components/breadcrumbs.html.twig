@@ -1,4 +1,6 @@
 {% macro govukBreadcrumbs(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 {%- set classNames = "govuk-breadcrumbs" -%}
 
 {%- if params.classes | default(false) ~%}
@@ -9,12 +11,12 @@
   {%- set classNames = "#{classNames} govuk-breadcrumbs--collapse-on-mobile" ~%}
 {%- endif -%}
 
-<div class="{{classNames}}"{% for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+<div class="{{classNames}}" {{- govukAttributes(params.attributes ?? []) }}>
   <ol class="govuk-breadcrumbs__list">
 {%- for item in params.items ?? [] ~%}
   {%- if item.href is defined and item.href is not null ~%}
     <li class="govuk-breadcrumbs__list-item">
-      <a class="govuk-breadcrumbs__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+      <a class="govuk-breadcrumbs__link" href="{{ item.href }}" {{- govukAttributes(item.attributes ?? []) }}>
         {{- item.html is defined and item.html is not null ? item.html | raw : item.text -}}
       </a>
     </li>

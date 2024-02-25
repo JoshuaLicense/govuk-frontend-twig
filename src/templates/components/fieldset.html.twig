@@ -1,9 +1,11 @@
 {% macro govukFieldset(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 <fieldset class="govuk-fieldset
   {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {%- if params.role | default(false) %} role="{{ params.role }}"{% endif ~%}
   {%- if params.describedBy | default(false) %} aria-describedby="{{ params.describedBy }}"{% endif ~%}
-  {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}"{% endfor %}>
+  {{- govukAttributes(params.attributes ?? []) }}>
   {%- if params.legend.html | default(false) or params.legend.text | default(false) ~%}
   <legend class="govuk-fieldset__legend {%- if params.legend.classes | default(false) %} {{ params.legend.classes }}{% endif %}">
   {%- if params.legend.isPageHeading | default(false) ~%}

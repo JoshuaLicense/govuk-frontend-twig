@@ -1,4 +1,6 @@
 {% macro govukNotificationBanner(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 {%- if params.type is defined and params.type == "success" ~%}
   {%- set successBanner = true ~%}
 {%- endif ~%}
@@ -29,20 +31,21 @@
 
 <div class="govuk-notification-banner{% if typeClass | default(false) %} {{ typeClass }}{% endif %}{% if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="{{ role }}" aria-labelledby="{{ params.titleId | default('govuk-notification-banner-title')}}" data-module="govuk-notification-banner"
   {%- if params.disableAutoFocus is defined %} data-disable-auto-focus="{{ params.disableAutoFocus ? 'true' : 'false' }}"{% endif ~%}
-  {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+  {{- govukAttributes(params.attributes ?? []) }}>
   <div class="govuk-notification-banner__header">
     <h{{ params.titleHeadingLevel | default(2) }} class="govuk-notification-banner__title" id="{{ params.titleId | default('govuk-notification-banner-title') }}">
       {{ title | raw }}
     </h{{ params.titleHeadingLevel | default(2) }}>
   </div>
   <div class="govuk-notification-banner__content">
-    {%- if params.html | default(false) -%}
-      {{ params.html | raw }}
-    {%- elseif params.text | default(false) -%}
-      {# Set default style for single line content #}
-
-      <p class="govuk-notification-banner__heading">{{ params.text }}</p>
-    {%- endif -%}
+  {%- if params.html | default(false) ~%}
+    {{ params.html | trim | raw }}
+  {%- elseif params.text | default(false) ~%}
+    {# Set default style for single line content -#}
+    <p class="govuk-notification-banner__heading">
+      {{ params.text | trim }}
+    </p>
+  {%- endif ~%}
   </div>
 </div>
 {% endmacro %}

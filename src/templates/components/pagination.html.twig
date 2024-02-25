@@ -1,73 +1,80 @@
 {% macro govukPagination(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
 
 {%- set blockLevel = not params.items | default(false) and (params.next | default(false) or params.previous | default(false)) -%}
 
-<nav class="govuk-pagination{% if params.classes | default(false) %} {{ params.classes }}{% endif %}{% if blockLevel %} govuk-pagination--block{% endif %}" role="navigation" aria-label="{{ params.landmarkLabel | default("Pagination") }}" {%- for attribute, value in params.attributes ?? [] %} {{ attribute }}="{{ value }}" {%- endfor %}>
-  {%- if params.previous | default(false) and params.previous.href | default(false) -%}
-    <div class="govuk-pagination__prev">
-      <a class="govuk-link govuk-pagination__link" href="{{ params.previous.href }}" rel="prev" {%- for attribute, value in params.previous.attributes ?? [] %} {{ attribute }}="{{ value }}" {%- endfor %}>
-        <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
-          <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
-        </svg>
-        <span class="govuk-pagination__link-title{% if blockLevel and not params.previous.labelText | default(false) %} govuk-pagination__link-title--decorated{% endif %}">
-          {%- if params.previous.html | default(false) or params.previous.text | default(false) -%}
-            {{ params.previous.html | default(false) ? params.previous.html | raw : params.previous.text }}
-          {%- else -%}
-            Previous<span class="govuk-visually-hidden"> page</span>
-          {%- endif -%}
-        </span>
-        {%- if params.previous.labelText | default(false) and blockLevel -%}
-          <span class="govuk-visually-hidden">:</span>
-          <span class="govuk-pagination__link-label">{{ params.previous.labelText }}</span>
-        {%- endif -%}
-      </a>
-    </div>
-  {%~ endif %}
+{%- macro _arrowLink(link, blockLevel, label, type = "next") -%}
+  {%- from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+  {%- set arrowPrevious -%}
+  <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+    <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+  </svg>
+  {%- endset -%}
 
-  {%- if params.items | default(false) -%}
-    <ul class="govuk-pagination__list">
-      {%- for item in params.items -%}
-        {%- if item.ellipsis | default(false) -%}
-          <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
-        {%- elseif item.number | default(false) -%}
-          <li class="govuk-pagination__item{% if item.current | default(false) %} govuk-pagination__item--current{% endif %}">
-            <a class="govuk-link govuk-pagination__link" href="{{ item.href }}" aria-label="{{ item.visuallyHiddenText | default("Page #{item.number}") }}" {%- if item.current | default(false) %} aria-current="page" {%- endif -%} {%- for attribute, value in item.attributes ?? [] %} {{ attribute }}="{{ value }}" {%- endfor %}>
-              {{ item.number }}
-            </a>
-          </li>
-        {%- endif -%}
-      {%- endfor -%}
-    </ul>
-  {%- endif -%}
+  {%- set arrowNext -%}
+  <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+    <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+  </svg>
+  {%- endset -%}
 
-  {%- if params.next | default(false) and params.next.href | default(false) -%}
-    {%- set nextArrow %}
-      <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
-        <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
-      </svg>
-    {%- endset -%}
+  {%- set arrowType = type is same as("prev") ? arrowPrevious : arrowNext ~%}
+  <div class="govuk-pagination__{{ type }}">
+    <a class="govuk-link govuk-pagination__link" href="{{ link.href }}" rel="{{ type }}"
+      {{- govukAttributes(link.attributes ?? []) }}>
+      {%- if blockLevel or type is same as("prev") ~%}
+  {{ arrowType | raw }}
+      {%- endif ~%}
+      <span class="govuk-pagination__link-title{% if blockLevel and not link.labelText | default(false) %} govuk-pagination__link-title--decorated{% endif %}">
+      {%- if link.html | default(false) or link.text | default(false) ~%}
+        {{ link.html | default(false) ? link.html | raw : link.text }}
+      {%- else ~%}
+        {{ label }}<span class="govuk-visually-hidden"> page</span>
+      {%- endif ~%}
+      </span>
+      {%- if link.labelText | default(false) and blockLevel ~%}
+      <span class="govuk-visually-hidden">:</span>
+      <span class="govuk-pagination__link-label">{{ link.labelText }}</span>
+      {%- endif ~%}
+      {%- if (not blockLevel) and type is same as("next") ~%}
+  {{ arrowType | raw }}
+      {%- endif ~%}
+    </a>
+  </div>
+{%- endmacro -%}
 
-    <div class="govuk-pagination__next">
-      <a class="govuk-link govuk-pagination__link" href="{{ params.next.href }}" rel="next" {%- for attribute, value in params.next.attributes ?? [] %} {{ attribute }}="{{ value }}" {%- endfor %}>
-        {%- if blockLevel -%}
-          {{- nextArrow | raw -}}
-        {%- endif %}
-        <span class="govuk-pagination__link-title{% if blockLevel and not params.next.labelText | default(false) %} govuk-pagination__link-title--decorated{% endif %}">
-          {%- if params.next.html | default(false) or params.next.text | default(false) -%}
-            {{ params.next.html | default(false) ? params.next.html | raw : params.next.text }}
-          {%- else -%}
-            Next<span class="govuk-visually-hidden"> page</span>
-          {%- endif -%}
-        </span>
-        {%- if params.next.labelText | default(false) and blockLevel -%}
-          <span class="govuk-visually-hidden">:</span>
-          <span class="govuk-pagination__link-label">{{ params.next.labelText }}</span>
-        {%- endif -%}
-        {%- if not blockLevel -%}
-          {{- nextArrow | raw -}}
-        {%- endif -%}
-      </a>
-    </div>
-  {%- endif -%}
+{%- macro _pageItem(item) -%}
+  {%- from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+  <li class="govuk-pagination__item{% if item.current | default(false) %} govuk-pagination__item--current{% endif %} {%- if item.ellipsis | default(false) %} govuk-pagination__item--ellipses{% endif %}">
+  {%- if item.ellipsis | default(false) ~%}
+    &ctdot;
+  {%- else ~%}
+    <a class="govuk-link govuk-pagination__link" href="{{ item.href }}" aria-label="{{ item.visuallyHiddenText | default("Page #{item.number}") }}" {%- if item.current | default(false) %} aria-current="page" {%- endif -%}
+    {{- govukAttributes(item.attributes ?? []) }}>
+      {{ item.number }}
+    </a>
+  {%- endif ~%}
+  </li>
+{%- endmacro -%}
+
+<nav class="govuk-pagination{% if params.classes | default(false) %} {{ params.classes }}{% endif %}{% if blockLevel %} govuk-pagination--block{% endif %}" role="navigation" aria-label="{{ params.landmarkLabel | default("Pagination") }}"
+  {{- govukAttributes(params.attributes ?? []) }}>
+{%- set previous = params.previous | default(false) %}
+{%- set next = params.next | default(false) %}
+
+{%- if previous and previous.href | default(false) %}
+  {{- _self._arrowLink(previous, blockLevel, "Previous", "prev") | raw }}
+{%- endif ~%}
+
+{%- if params.items | default(false) ~%}
+  <ul class="govuk-pagination__list">
+  {%- for item in params.items ~%}
+    {{ _self._pageItem(item) | raw }}
+  {%- endfor ~%}
+  </ul>
+{%- endif ~%}
+
+{%- if next and next.href | default(false) ~%}
+  {{- _self._arrowLink(next, blockLevel, "Next", "next") | raw }}
+{%- endif ~%}
 </nav>
 {% endmacro %}

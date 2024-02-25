@@ -1,6 +1,8 @@
 {% macro govukFooter(params) %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+
 <footer class="govuk-footer {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="contentinfo"
-        {%- for attribute, value in params.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+        {{- govukAttributes(params.attributes ?? []) }}>
   <div class="govuk-width-container {%- if params.containerClasses | default(false) %} {{ params.containerClasses }}{% endif %}">
     {%- if params.navigation | default(false) ~%}
       <div class="govuk-footer__navigation">
@@ -17,7 +19,8 @@
                 {%- for item in nav.items ~%}
                   {%- if item.href is defined and item.text is defined ~%}
                     <li class="govuk-footer__list-item">
-                      <a class="govuk-footer__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
+                      <a class="govuk-footer__link" href="{{ item.href }}"
+                      {{- govukAttributes(item.attributes ?? []) }}>
                         {{ item.text }}
                       </a>
                     </li>
@@ -33,28 +36,28 @@
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         {%- if params.meta is defined ~%}
-          <h2 class="govuk-visually-hidden">{{ params.meta.visuallyHiddenTitle | default("Support links") }}</h2>
-          {%- if params.meta.items | default(false) ~%}
-            <ul class="govuk-footer__inline-list">
-              {%- for item in params.meta.items ?? [] ~%}
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="{{ item.href }}"{% for attribute, value in item.attributes ?? [] %} {{attribute}}="{{value is same as(true) or value is same as(false) ? (value ? 'true' : 'false') : value }}"{% endfor %}>
-                    {{ item.text }}
-                  </a>
-                </li>
-              {%- endfor ~%}
-            </ul>
-          {%- endif ~%}
-          {%- if params.meta.text | default(false) or params.meta.html | default(false) ~%}
-            <div class="govuk-footer__meta-custom">
-              {{ params.meta.html | default(false) ? params.meta.html | raw : params.meta.text }}
-            </div>
-          {%- endif ~%}
+        <h2 class="govuk-visually-hidden">{{ params.meta.visuallyHiddenTitle | default("Support links") }}</h2>
+        {%- if params.meta.items | default(false) ~%}
+        <ul class="govuk-footer__inline-list">
+          {%- for item in params.meta.items ?? [] ~%}
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="{{ item.href }}"
+            {{- govukAttributes(item.attributes ?? []) }}>
+              {{ item.text }}
+            </a>
+          </li>
+          {%- endfor ~%}
+        </ul>
+        {%- endif ~%}
+        {%- if params.meta.text | default(false) or params.meta.html | default(false) ~%}
+        <div class="govuk-footer__meta-custom">
+          {{ params.meta.html | default(false) ? params.meta.html | raw : params.meta.text }}
+        </div>
+        {%- endif ~%}
         {%- endif ~%}
         {#- The SVG needs `focusable="false"` so that Internet Explorer does not
         treat it as an interactive element - without this it will be
         'focusable' when using the keyboard to navigate. ~#}
-
         <svg
           aria-hidden="true"
           focusable="false"
@@ -70,16 +73,16 @@
           />
         </svg>
         <span class="govuk-footer__licence-description">
-          {%- if params.contentLicence.html | default(false) or params.contentLicence.text | default(false) ~%}
-            {{ params.contentLicence.html | default(false) ? params.contentLicence.html | raw : params.contentLicence.text }}
-          {%- else ~%}
-            All content is available under the
-            <a
-              class="govuk-footer__link"
-              href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-              rel="license"
-            >Open Government Licence v3.0</a>, except where otherwise stated
-          {%- endif ~%}
+        {%- if params.contentLicence.html | default(false) or params.contentLicence.text | default(false) ~%}
+          {{ params.contentLicence.html | default(false) ? params.contentLicence.html | raw : params.contentLicence.text }}
+        {%- else ~%}
+          All content is available under the
+          <a
+            class="govuk-footer__link"
+            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            rel="license"
+          >Open Government Licence v3.0</a>, except where otherwise stated
+        {%- endif ~%}
         </span>
       </div>
       <div class="govuk-footer__meta-item">
@@ -87,11 +90,11 @@
           class="govuk-footer__link govuk-footer__copyright-logo"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
         >
-          {%- if params.copyright.html | default(false) or params.copyright.text | default(false) -%}
-            {{ params.copyright.html | default(false) ? params.copyright.html | raw : params.copyright.text }}
-          {%- else -%}
-            © Crown copyright
-          {%- endif -%}
+        {%- if params.copyright.html | default(false) or params.copyright.text | default(false) ~%}
+          {{ params.copyright.html | default(false) ? params.copyright.html | raw : params.copyright.text }}
+        {%- else ~%}
+          © Crown copyright
+        {%- endif ~%}
         </a>
       </div>
     </div>
