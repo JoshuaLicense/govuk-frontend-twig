@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.1.0...v5.1.1) (2024-02-25)
+
+
+### Bug Fixes
+
+* remove `--no-suggest` from CI composer command ([#79](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/79)) ([4c46746](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/4c46746ac5a0cee29c7543e91d5468e989c76894))
+* render Nunjucks with `lstripBlocks` ([#77](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/77)) ([b38c8ca](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/b38c8cad0d0cbafa940a6e30048f4db311bad869))
+
 ## [5.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.0.0...v5.1.0) (2024-02-07)
 
 
