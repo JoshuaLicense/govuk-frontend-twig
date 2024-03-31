@@ -78,7 +78,7 @@
       {%- if options.optional is same as (true) and options.value is same as (true) %}
         {%- set attributesHtml = "#{attributesHtml} #{name}" %}
       {#- Skip optional empty attributes or output ` name="value"` pair by default -#}
-      {%- elseif (options.optional is same as (true) and not [undefined, null, false].includes(options.value)) or options.optional is not same as (true) %}
+      {%- elseif (options.optional is same as (true) and not options.value is same as (null, false)) or options.optional | default(false) is not same as (true) %}
         {%- set attributesHtml = "#{attributesHtml} #{name}=\"#{options.value is same as(true) or value is same as(false) ? (options.value ? 'true' : 'false') : options.value}\"" %}
       {%- endif %}
     {%- endfor %}
