@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.2.0...v5.2.1) (2024-03-31)
+
+
+### Bug Fixes
+
+* fix attributes macro syntax ([#88](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/88)) ([2d42407](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/2d424073485a7995ffe7e2fe81021034390ce557))
+
 ## [5.2.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.1.1...v5.2.0) (2024-02-25)
 
 
