@@ -7,7 +7,8 @@
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
 {%- set describedBy = params.describedBy | default("") -%}
-<div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}" {{- govukAttributes(params.formGroup.attributes ?? []) }}>
+<div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}"
+{{- govukAttributes(params.formGroup.attributes ?? []) }}>
   {{ govukLabel({
     html: params.label.html | default(null),
     text: params.label.text | default(null),
@@ -39,11 +40,17 @@
     visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
   }) | trim | raw}}
 {%- endif ~%}
+{% if params.formGroup.beforeInput | default(false) %}
+  {{ params.formGroup.beforeInput.html | default(false) ? params.formGroup.beforeInput.html | trim | raw : params.formGroup.beforeInput.text }}
+{% endif %}
   <textarea class="govuk-textarea {%- if params.errorMessage | default(false) %} govuk-textarea--error{% endif %} {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" id="{{ params.id }}" name="{{ params.name }}" rows="{% if params.rows | default(false) %} {{- params.rows -}} {% else %}5{% endif %}"
   {%- if params.spellcheck is defined and params.spellcheck is not null %} spellcheck="{{ params.spellcheck ? 'true' : 'false' }}"{% endif ~%}
   {%- if params.disabled | default(false) %} disabled{% endif ~%}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif ~%}
   {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif ~%}
   {{- govukAttributes(params.attributes ?? []) }}>{{ params.value | default() }}</textarea>
+{% if params.formGroup.afterInput | default(false) %}
+  {{ params.formGroup.afterInput.html | default(false) ? params.formGroup.afterInput.html | trim | raw : params.formGroup.afterInput.text }}
+{% endif %}
 </div>
 {% endmacro %}
