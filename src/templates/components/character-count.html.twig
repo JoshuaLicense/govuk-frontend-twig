@@ -1,14 +1,43 @@
 {% macro govukCharacterCount(params) %}
 {% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes %}
+{% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes %}
 {% from "@govuk-frontend-twig/components/textarea.html.twig" import govukTextarea %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 
 {%- set hasNoLimit = not (params.maxwords | default(false) or params.maxlength | default(false)) -%}
+{%- set textareaDescriptionLength = params.maxwords | default(params.maxlength | default()) ~%}
+{%- set textareaUnit = params.maxwords | default(false) ? 'words' : 'characters' ~%}
+{%- set textareaDescriptionText = params.textareaDescriptionText | default("You can enter up to %{count} #{textareaUnit}") ~%}
 
-<div class="govuk-character-count" data-module="govuk-character-count"
-  {%- if params.maxlength | default(false) %} data-maxlength="{{ params.maxlength }}"{% endif ~%}
-  {%- if params.threshold | default(false) %} data-threshold="{{ params.threshold }}"{% endif ~%}
-  {%- if params.maxwords | default(false) %} data-maxwords="{{ params.maxwords }}"{% endif ~%}
+{%- set countMessageHtml %}
+  {%- set countMessageClassNames = 'govuk-character-count__message' %}
+  {%- if params.countMessage.classes | default(false) %}
+    {%- set countMessageClassNames = "#{countMessageClassNames} #{params.countMessage.classes}" %}
+  {%- endif %}
+
+  {{- govukHint({
+    text: hasNoLimit ? null : textareaDescriptionText | replace({'%{count}': textareaDescriptionLength}),
+    id: "#{params.id}-info",
+    classes: countMessageClassNames
+  }) | trim | raw }}
+{%- endset -%}
+
+{%- set attributesHtml %}
+  {{- govukAttributes({
+    "data-module": "govuk-character-count",
+    "data-maxlength": {
+      value: params.maxlength | default(null),
+      optional: true
+    },
+    "data-threshold": {
+      value: params.threshold | default(null),
+      optional: true
+    },
+    "data-maxwords": {
+      value: params.maxwords | default(null),
+      optional: true
+    }
+  }) -}}
   {#-
     Without maxlength or maxwords, we can't guess if the component will count words or characters.
     We can't guess a default textarea description to be interpolated in JavaScript
@@ -50,46 +79,40 @@
   {{- govukI18nAttributes({
     key: 'words-over-limit',
     messages: params.wordsOverLimitText | default(null)
-  }) -}}>
-  {{ govukTextarea({
-    id: params.id,
-    name: params.name,
-    describedBy: "#{params.id}-info",
-    rows: params.rows | default(null),
-    spellcheck: params.spellcheck is defined ? params.spellcheck : null,
-    value: params.value | default(null),
-    formGroup: params.formGroup | default(null),
-    classes: 'govuk-js-character-count' ~ (params.classes | default(false) ? ' ' ~ params.classes : ''),
-    label: {
-      html: params.label.html | default(null),
-      text: params.label.text | default(null),
-      classes: params.label.classes | default(null),
-      isPageHeading: params.label.isPageHeading | default(false),
-      attributes: params.label.attributes | default(null),
-      for: params.id | default(null)
-    },
-    hint: params.hint | default(null),
-    errorMessage: params.errorMessage | default(null),
-    attributes: params.attributes | default(null)
-  }) }}
+  }) -}}
+{% endset -%}
 
-  {%- set textareaDescriptionLength = params.maxwords | default(params.maxlength | default()) ~%}
-  {%- set textareaUnit = params.maxwords | default(false) ? 'words' : 'characters' ~%}
-  {%- set textareaDescriptionText = params.textareaDescriptionText | default("You can enter up to %{count} #{textareaUnit}") ~%}
-  {#-
-    If the limit is set in JavaScript, we won't be able to interpolate the message
-    until JavaScript, so we only set a text if the `maxlength` or `maxwords` options
-    were provided to the macro.
-  #}
-  {%- set countMessageClassNames = 'govuk-character-count__message' %}
-  {%- if params.countMessage.classes | default(false) %}
-    {%- set countMessageClassNames = "#{countMessageClassNames} #{params.countMessage.classes}" %}
-  {%- endif %}
+{#- Append form group attributes onto attributes set above #}
+{%- for name, value in params.formGroup.attributes ?? [] %}
+  {%- set attributesHtml = "#{attributesHtml} #{name}=\"#{value}\"" %}
+{%- endfor -%}
 
-  {{ govukHint({
-    text: hasNoLimit ? null : textareaDescriptionText | replace({'%{count}': textareaDescriptionLength}),
-    id: "#{params.id}-info",
-    classes: countMessageClassNames
-  }) | trim | raw }}
-</div>
+{{ govukTextarea({
+  id: params.id,
+  name: params.name,
+  describedBy: "#{params.id}-info",
+  rows: params.rows | default(null),
+  spellcheck: params.spellcheck is defined ? params.spellcheck : null,
+  value: params.value | default(null),
+  formGroup: {
+    classes: "govuk-character-count" ~ (params.formGroup.classes | default(false) ? ' ' ~ params.formGroup.classes : ''),
+    attributes: attributesHtml,
+    beforeInput: params.formGroup.beforeInput | default(null),
+    afterInput: {
+      html: countMessageHtml
+    }
+  },
+  classes: 'govuk-js-character-count' ~ (params.classes | default(false) ? ' ' ~ params.classes : ''),
+  label: {
+    html: params.label.html | default(null),
+    text: params.label.text | default(null),
+    classes: params.label.classes | default(null),
+    isPageHeading: params.label.isPageHeading | default(false),
+    attributes: params.label.attributes | default(null),
+    for: params.id | default(null)
+  },
+  hint: params.hint | default(null),
+  errorMessage: params.errorMessage | default(null),
+  attributes: params.attributes | default(null)
+}) | trim | raw }}
 {% endmacro %}

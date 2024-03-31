@@ -1,7 +1,7 @@
 {% macro govukFooter(params) %}
 {% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
 
-<footer class="govuk-footer {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="contentinfo"
+<footer class="govuk-footer {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
         {{- govukAttributes(params.attributes ?? []) }}>
   <div class="govuk-width-container {%- if params.containerClasses | default(false) %} {{ params.containerClasses }}{% endif %}">
     {%- if params.navigation | default(false) ~%}

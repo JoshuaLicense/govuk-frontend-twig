@@ -56,7 +56,7 @@
   </li>
 {%- endmacro -%}
 
-<nav class="govuk-pagination{% if params.classes | default(false) %} {{ params.classes }}{% endif %}{% if blockLevel %} govuk-pagination--block{% endif %}" role="navigation" aria-label="{{ params.landmarkLabel | default("Pagination") }}"
+<nav class="govuk-pagination{% if params.classes | default(false) %} {{ params.classes }}{% endif %}{% if blockLevel %} govuk-pagination--block{% endif %}" aria-label="{{ params.landmarkLabel | default("Pagination") }}"
   {{- govukAttributes(params.attributes ?? []) }}>
 {%- set previous = params.previous | default(false) %}
 {%- set next = params.next | default(false) %}

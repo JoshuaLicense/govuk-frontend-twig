@@ -35,7 +35,7 @@
 </svg>
 {%- endset -%}
 
-<header class="govuk-header {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" role="banner" data-module="govuk-header"
+<header class="govuk-header {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-header"
   {{- govukAttributes(params.attributes ?? []) }}>
   <div class="govuk-header__container {{ params.containerClasses | default('govuk-width-container') }}">
     <div class="govuk-header__logo">

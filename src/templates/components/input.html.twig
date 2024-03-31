@@ -24,6 +24,7 @@
     {%- if params.autocomplete | default(false) %} autocomplete="{{ params.autocomplete}}"{% endif ~%}
     {%- if params.pattern | default(false) %} pattern="{{ params.pattern }}"{% endif ~%}
     {%- if params.inputmode | default(false) %} inputmode="{{ params.inputmode }}"{% endif ~%}
+    {%- if params.autocapitalize | default(false) %} autocapitalize="{{ params.autocapitalize }}"{% endif ~%}
     {{- govukAttributes(params.attributes ?? []) }}>
 {%- endmacro -%}
 
@@ -68,10 +69,11 @@
 {%- endif ~%}
 
 {%- if hasPrefix or hasSuffix or hasBeforeInput or hasAfterInput ~%}
-  <div class="govuk-input__wrapper">
+  <div class="govuk-input__wrapper {%- if params.inputWrapper.classes | default(false) %} {{ params.inputWrapper.classes }}{% endif %}"
+  {{- govukAttributes(params.inputWrapper.attributes ?? []) }}>
   {%- if hasBeforeInput %}
-  {{ params.formGroup.beforeInputs.html | default(false) ? params.formGroup.beforeInputs.html | trim | raw : params.formGroup.beforeInputs.text }}
-  {%- endif %}
+  {{- params.formGroup.beforeInputs.html | default(false) ? params.formGroup.beforeInputs.html | trim | raw : params.formGroup.beforeInputs.text }}
+  {%~ endif %}
   {%- if hasPrefix ~%}
   {{ _self._affixItem(params.prefix, 'prefix') }}
   {%- endif ~%}
@@ -80,8 +82,8 @@
   {{ _self._affixItem(params.suffix, 'suffix') }}
   {%- endif ~%}
   {%~ if hasAfterInput %}
-  {{ params.formGroup.afterInput.html | default(false) ? params.formGroup.afterInput.html | trim | raw : params.formGroup.afterInput.text }}
-  {%- endif %}
+  {{- params.formGroup.afterInput.html | default(false) ? params.formGroup.afterInput.html | trim | raw : params.formGroup.afterInput.text }}
+  {%~ endif %}
   </div>
 {%- else ~%}
   {{ _self._inputElement(params, describedBy) }}
