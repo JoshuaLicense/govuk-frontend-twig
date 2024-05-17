@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   test:
-    name: PHP${{ matrix.php-versions }} (Composer `prefer-${{ matrix.composer-stability }}`)
+    name: PHP (${{ matrix.php-versions }}) (Composer `prefer-${{ matrix.composer-stability }}`)
     strategy:
       fail-fast: false
       matrix:
