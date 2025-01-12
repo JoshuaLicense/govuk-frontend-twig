@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.8.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.7.0...v5.8.0) (2025-01-12)
+
+
+### Features
+
+* bump to `govuk-frontend` v5.8 ([#144](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/144)) ([95ffa3e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/95ffa3e5aa0bd40bb04c40d35da08e2b0a68b872))
+
 ## [5.7.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.6.0...v5.7.0) (2024-10-10)
 
 
