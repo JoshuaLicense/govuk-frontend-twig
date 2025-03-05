@@ -7,6 +7,8 @@
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
 {%- set describedBy = params.describedBy | default("") -%}
+{%- set id = params.id | default(params.name) -%}
+
 <div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}"
 {{- govukAttributes(params.formGroup.attributes ?? []) }}>
   {{ govukLabel({
@@ -15,10 +17,10 @@
     classes: params.label.classes | default(null),
     isPageHeading: params.label.isPageHeading | default(null),
     attributes: params.label.attributes | default(null),
-    for: params.id | default(null)
+    for: id | default(null)
   }) | trim | raw }}
 {%- if params.hint | default(false) ~%}
-  {%- set hintId = "#{params.id}-hint" ~%}
+  {%- set hintId = "#{id}-hint" ~%}
   {%- set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" ~%}
   {{ govukHint({
     id: hintId,
@@ -29,7 +31,7 @@
   }) | trim | raw }}
 {%- endif ~%}
 {%- if params.errorMessage | default(false) ~%}
-  {%- set errorId = "#{params.id}-error" ~%}
+  {%- set errorId = "#{id}-error" ~%}
   {%- set describedBy = describedBy is empty ? errorId : "#{describedBy} #{errorId}" ~%}
   {{ govukErrorMessage({
     id: errorId,
@@ -43,7 +45,7 @@
 {% if params.formGroup.beforeInput | default(false) %}
   {{ params.formGroup.beforeInput.html | default(false) ? params.formGroup.beforeInput.html | trim | raw : params.formGroup.beforeInput.text }}
 {% endif %}
-  <textarea class="govuk-textarea {%- if params.errorMessage | default(false) %} govuk-textarea--error{% endif %} {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" id="{{ params.id }}" name="{{ params.name }}" rows="{% if params.rows | default(false) %} {{- params.rows -}} {% else %}5{% endif %}"
+  <textarea class="govuk-textarea {%- if params.errorMessage | default(false) %} govuk-textarea--error{% endif %} {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" id="{{ id }}" name="{{ params.name }}" rows="{% if params.rows | default(false) %} {{- params.rows -}} {% else %}5{% endif %}"
   {%- if params.spellcheck is defined and params.spellcheck is not null %} spellcheck="{{ params.spellcheck ? 'true' : 'false' }}"{% endif ~%}
   {%- if params.disabled | default(false) %} disabled{% endif ~%}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif ~%}
