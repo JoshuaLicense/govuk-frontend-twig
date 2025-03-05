@@ -1,5 +1,6 @@
 {% macro govukFileUpload(params) %}
 {% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+{% from "@govuk-frontend-twig/macros/i18n.twig" import govukI18nAttributes -%}
 {% from "@govuk-frontend-twig/components/error-message.html.twig" import govukErrorMessage %}
 {% from "@govuk-frontend-twig/components/hint.html.twig" import govukHint %}
 {% from "@govuk-frontend-twig/components/label.html.twig" import govukLabel %}
@@ -7,6 +8,8 @@
 {#- a record of other elements that we need to associate with the input using
    aria-describedby – for example hints or error messages -#}
 {%- set describedBy = params.describedBy | default(null) -%}
+{%- set id = params.id | default(params.name) -%}
+
 <div class="govuk-form-group {%- if params.errorMessage | default(false) %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes | default(false) %} {{ params.formGroup.classes }}{% endif %}" {{- govukAttributes(params.formGroup.attributes ?? []) }}>
   {{ govukLabel({
     html: params.label.html | default(null),
@@ -14,10 +17,10 @@
     classes: params.label.classes | default(null),
     isPageHeading: params.label.isPageHeading | default(null),
     attributes: params.label.attributes | default(null),
-    for: params.id | default(null)
+    for: id | default(null)
   }) | trim | raw}}
 {%- if params.hint | default(false) ~%}
-  {%- set hintId = "#{params.id}-hint" ~%}
+  {%- set hintId = "#{id}-hint" ~%}
   {%- set describedBy = describedBy is empty ? hintId : "#{describedBy} #{hintId}" ~%}
   {{ govukHint({
     id: hintId,
@@ -28,7 +31,7 @@
   }) | trim | raw}}
 {%- endif ~%}
 {%- if params.errorMessage | default(false) ~%}
-  {%- set errorId = "#{params.id}-error" ~%}
+  {%- set errorId = "#{id}-error" ~%}
   {%- set describedBy = describedBy is empty ? errorId : "#{describedBy} #{errorId}" ~%}
   {{ govukErrorMessage({
     id: errorId,
@@ -39,10 +42,62 @@
     visuallyHiddenText: params.errorMessage.visuallyHiddenText | default(null)
   }) | trim | raw}}
 {%- endif ~%}
-  <input class="govuk-file-upload {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-file-upload--error{% endif %}" id="{{ params.id }}" name="{{ params.name }}" type="file"
+{% if params.formGroup.beforeInput | default(false) %}
+  {{ params.formGroup.afterbeforeInputInput.html | default(null) ? params.formGroup.beforeInput.html : params.formGroup.beforeInput.text }}
+{% endif %}
+{% if params.javascript | default(false) %}
+  <div
+    class="govuk-drop-zone"
+    data-module="govuk-file-upload"
+    {{- govukI18nAttributes({
+      key: 'choose-files-button',
+      message: params.chooseFilesButtonText | default(null)
+    }) -}}
+    {{- govukI18nAttributes({
+      key: 'no-file-chosen',
+      message: params.noFileChosenText | default(null)
+    }) -}}
+    {{- govukI18nAttributes({
+      key: 'multiple-files-chosen',
+      messages: params.multipleFilesChosenText | default(null)
+    }) -}}
+    {{- govukI18nAttributes({
+      key: 'drop-instruction',
+      message: params.dropInstructionText | default(null)
+    }) -}}
+    {{- govukI18nAttributes({
+      key: 'entered-drop-zone',
+      message: params.enteredDropZoneText | default(null)
+    }) -}}
+    {{- govukI18nAttributes({
+      key: 'left-drop-zone',
+      message: params.leftDropZoneText | default(null)
+    }) -}}
+  >
+{% endif %}
+  <input class="govuk-file-upload {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-file-upload--error{% endif %}" id="{{ id }}" name="{{ params.name }}" type="file"
   {%- if params.value | default(false) %} value="{{ params.value }}"{% endif ~%}
   {%- if params.disabled | default(false) %} disabled{% endif ~%}
+  {%- if params.multiple | default(false) %} multiple{% endif ~%}
   {%- if describedBy %} aria-describedby="{{ describedBy }}"{% endif ~%}
+  {{- govukI18nAttributes({
+    key: 'select-files-button',
+    message: params.selectFilesButtonText | default(null)
+  }) -}}
+  {{- govukI18nAttributes({
+    key: 'files-selected-default',
+    message: params.filesSelectedDefaultText | default(null)
+  }) -}}
+  {{- govukI18nAttributes({
+    key: 'files-selected',
+    message: params.filesSelectedText | default(null)
+  }) -}}
   {{- govukAttributes(params.attributes ?? []) }}>
+{% if params.javascript | default(false) %}
+  </div>
+{% endif %}
+{% if params.formGroup.afterInput | default(false) %}
+  {{ params.formGroup.afterInput.html | default(null) ? params.formGroup.afterInput.html : params.formGroup.afterInput.text }}
+{% endif %}
 </div>
 {% endmacro %}

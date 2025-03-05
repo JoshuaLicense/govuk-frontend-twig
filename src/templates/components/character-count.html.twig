@@ -8,6 +8,7 @@
 {%- set textareaDescriptionLength = params.maxwords | default(params.maxlength | default()) ~%}
 {%- set textareaUnit = params.maxwords | default(false) ? 'words' : 'characters' ~%}
 {%- set textareaDescriptionText = params.textareaDescriptionText | default("You can enter up to %{count} #{textareaUnit}") ~%}
+{%- set id = params.id | default(params.name) ~%}
 
 {%- set countMessageHtml %}
   {%- set countMessageClassNames = 'govuk-character-count__message' %}
@@ -17,7 +18,7 @@
 
   {{- govukHint({
     text: hasNoLimit ? null : textareaDescriptionText | replace({'%{count}': textareaDescriptionLength}),
-    id: "#{params.id}-info",
+    id: "#{id}-info",
     classes: countMessageClassNames
   }) | trim | raw }}
 {%- endset -%}
@@ -88,9 +89,9 @@
 {%- endfor -%}
 
 {{ govukTextarea({
-  id: params.id,
+  id: id,
   name: params.name,
-  describedBy: "#{params.id}-info",
+  describedBy: "#{id}-info",
   rows: params.rows | default(null),
   spellcheck: params.spellcheck is defined ? params.spellcheck : null,
   value: params.value | default(null),
@@ -109,7 +110,7 @@
     classes: params.label.classes | default(null),
     isPageHeading: params.label.isPageHeading | default(false),
     attributes: params.label.attributes | default(null),
-    for: params.id | default(null)
+    for: id | default(null)
   },
   hint: params.hint | default(null),
   errorMessage: params.errorMessage | default(null),
