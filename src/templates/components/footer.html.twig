@@ -1,9 +1,21 @@
 {% macro govukFooter(params) %}
 {% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
+{% from "@govuk-frontend-twig/macros/logo.twig" import govukLogo -%}
+
+{%- set _rebrand = params.rebrand | default(false) -%}
 
 <footer class="govuk-footer {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
         {{- govukAttributes(params.attributes ?? []) }}>
   <div class="govuk-width-container {%- if params.containerClasses | default(false) %} {{ params.containerClasses }}{% endif %}">
+    {%- if _rebrand ~%}
+    {{~ '' ~}}
+    {{~ '  ' ~}}
+  {{ govukLogo({
+    classes: 'govuk-footer__crown',
+    rebrand: true,
+    useLogotype: false
+  }) }}
+    {%~ endif %}
     {%- if params.navigation | default(false) ~%}
       <div class="govuk-footer__navigation">
         {%- for nav in params.navigation ~%}
