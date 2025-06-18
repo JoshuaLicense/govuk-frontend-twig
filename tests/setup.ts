@@ -28,7 +28,6 @@ const getAllComponents = async () => {
   );
 };
 
-// eslint-disable-next-line import/no-default-export
 export default async function setup(): Promise<void> {
   globalThis.components = await getAllComponents();
 }
