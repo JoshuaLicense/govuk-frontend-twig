@@ -4,7 +4,7 @@
   "type": "module",
   "description": "GOV.UK Frontend Nunjucks templates converted to Twig",
   "scripts": {
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "eslint .",
     "all": "npm run lint && npm run test",
     "prepare": "is-ci || husky"

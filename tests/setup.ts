@@ -1,17 +1,20 @@
 import { readdir } from "fs/promises";
-import path from "path";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+interface Fixture {
+  name: string;
+  options: Record<string, unknown>;
+}
 
 export interface ComponentFixture {
   component: string;
-  fixtures: {
-    name: string;
-    options: Record<string, unknown>;
-  }[];
+  fixtures: Fixture[];
 }
 
 const getAllComponents = async () => {
   const govukPath = `${path.dirname(
-    import.meta.resolve("govuk-frontend"),
+    fileURLToPath(import.meta.resolve("govuk-frontend")),
   )}/components/`;
   const govukComponents = (await readdir(govukPath, { withFileTypes: true }))
     .filter((file) => file.isDirectory())
@@ -21,9 +24,11 @@ const getAllComponents = async () => {
     govukComponents.map(async (component) => {
       const componentFixturePath = path.resolve(govukPath, component);
 
-      return (await import(
-        `${componentFixturePath}/fixtures.json`
-      )) as ComponentFixture;
+      return (
+        await import(`${componentFixturePath}/fixtures.json`, {
+          with: { type: "json" },
+        })
+      ).default as ComponentFixture;
     }),
   );
 };

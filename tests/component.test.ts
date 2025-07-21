@@ -2,6 +2,10 @@ import { spawnSync } from "node:child_process";
 import nunjucks from "nunjucks";
 import camelCase from "lodash.camelcase";
 import upperFirst from "lodash.upperfirst";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const renderNunjucksComponent = (component: string, context: unknown) => {
   const stringContext = JSON.stringify(context, undefined, "  ");
