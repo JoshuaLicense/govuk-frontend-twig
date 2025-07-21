@@ -1,4 +1,7 @@
 {
   "extends": "@tsconfig/node-lts/tsconfig.json",
-  "include": ["./**/*", "./**/.*"]
+  "include": ["./**/*", "./**/.*"],
+  "compilerOptions": {
+    "isolatedModules": true,
+  }
 }
