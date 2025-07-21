@@ -11,7 +11,7 @@ export interface ComponentFixture {
 
 const getAllComponents = async () => {
   const govukPath = `${path.dirname(
-    require.resolve("govuk-frontend"),
+    import.meta.resolve("govuk-frontend"),
   )}/components/`;
   const govukComponents = (await readdir(govukPath, { withFileTypes: true }))
     .filter((file) => file.isDirectory())
