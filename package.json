@@ -4,7 +4,7 @@
   "type": "module",
   "description": "GOV.UK Frontend Nunjucks templates converted to Twig",
   "scripts": {
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "lint": "eslint .",
     "all": "npm run lint && npm run test",
     "prepare": "is-ci || husky"
@@ -20,6 +20,7 @@
     "@types/lodash.upperfirst": "^4.3.7",
     "@types/nunjucks": "^3.2.4",
     "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.0",
     "govuk-frontend": "^5.0.0",
     "husky": "^9.0.10",

@@ -1,4 +1,8 @@
 {
   "extends": "@tsconfig/node-lts/tsconfig.json",
-  "include": ["./**/*", "./**/.*"]
+  "include": ["./**/*", "./**/.*"],
+  "files": ["eslint.config.mjs"],
+  "compilerOptions": {
+    "isolatedModules": true
+  }
 }
