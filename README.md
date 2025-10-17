@@ -8,6 +8,8 @@ Refer to the table below to determine which version of GOV.UK Frontend Twig you 
 
 | GOV.UK Frontend Twig Version                                                         | GOV.UK Frontend Version                                                    |
 | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| [v5.13.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v5.13.0) | [v5.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.13.0) |
+| [v5.11.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v5.11.0) | [v5.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.12.0) |
 | [v5.11.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v5.11.0) | [v5.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.11.0) |
 | [v5.10.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v5.10.0) | [v5.10.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.10.0) |
 | [v5.9.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v5.9.0)   | [v5.9.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.9.0)   |
