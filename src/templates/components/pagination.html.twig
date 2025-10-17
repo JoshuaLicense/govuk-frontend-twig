@@ -44,7 +44,7 @@
 
 {%- macro _pageItem(item) -%}
   {%- from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
-  <li class="govuk-pagination__item{% if item.current | default(false) %} govuk-pagination__item--current{% endif %} {%- if item.ellipsis | default(false) %} govuk-pagination__item--ellipses{% endif %}">
+  <li class="govuk-pagination__item{% if item.current | default(false) %} govuk-pagination__item--current{% endif %} {%- if item.ellipsis | default(false) %} govuk-pagination__item--ellipsis{% endif %}">
   {%- if item.ellipsis | default(false) ~%}
     &ctdot;
   {%- else ~%}
