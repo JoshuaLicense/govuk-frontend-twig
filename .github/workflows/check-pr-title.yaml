@@ -19,7 +19,7 @@ jobs:
     env:
       TITLE: ${{ github.event.pull_request.title }}
     steps:
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
       - name: Install commitlint
