@@ -2,7 +2,7 @@
 {% from "@govuk-frontend-twig/components/tag.html.twig" import govukTag -%}
 {% from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
 
-<div class="govuk-phase-banner
+<div class="govuk-phase-banner govuk-width-container
   {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {{- govukAttributes(params.attributes ?? []) }}>
   <p class="govuk-phase-banner__content">
