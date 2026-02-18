@@ -2,19 +2,17 @@
 {%- from "@govuk-frontend-twig/macros/attributes.twig" import govukAttributes -%}
 {%- from "@govuk-frontend-twig/macros/logo.twig" import govukLogo -%}
 
-{%- set _rebrand = params.rebrand | default(false) -%}
 {%- set menuButtonText = params.menuButtonText | default('Menu') -%}
 
-<header class="govuk-header {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}" data-module="govuk-header"
+<div class="govuk-header {%- if params.classes | default(false) %} {{ params.classes }}{% endif %}"
   {{- govukAttributes(params.attributes ?? []) }}>
   <div class="govuk-header__container {{ params.containerClasses | default('govuk-width-container') }}">
     <div class="govuk-header__logo">
-      <a href="{{ params.homepageUrl | default("/", true) }}" class="govuk-header__link govuk-header__link--homepage">
+      <a href="{{ params.homepageUrl | default("//gov.uk", true) }}" class="govuk-header__homepage-link">
         {{ govukLogo({
           classes: "govuk-header__logotype",
           ariaLabelText: "GOV.UK",
-          useTudorCrown: params.useTudorCrown is defined ? params.useTudorCrown : null,
-          rebrand: _rebrand
+          useTudorCrown: params.useTudorCrown is defined ? params.useTudorCrown : null
         }) }}
         {%~ if params.productName | default(false) %}
         <span class="govuk-header__product-name">
@@ -63,5 +61,5 @@
     </div>
     {%- endif ~%}
   </div>
-</header>
+</div>
 {% endmacro %}
