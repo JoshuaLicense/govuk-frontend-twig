@@ -6,9 +6,10 @@ This repository contains a collection of [Twig](https://twig.symfony.com/) macro
 
 Refer to the table below to determine which version of GOV.UK Frontend Twig you should use for your targeted version of [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend):
 
-| GOV.UK Frontend Twig Version                                                         | GOV.UK Frontend Version                                                    |
-| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
-| [v6.0.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v6.0.0) | [v6.0.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.0.0) |
+| GOV.UK Frontend Twig Version                                                           | GOV.UK Frontend Version                                                      |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [v6.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v6.1.0)   | [v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)   |
+| [v6.0.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v6.0.0)   | [v6.0.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.0.0)   |
 
 <details><summary>Older versions</summary>
 
