@@ -115,6 +115,18 @@ In `README.md`, add a row to the top of the compatibility table for the new vers
 | [v6.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/releases/tag/v6.1.0) | [v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0) |
 ```
 
+### Step 7: Choose the correct commit and PR title
+
+This repository uses [Conventional Commits](https://www.conventionalcommits.org/). The prefix **must** reflect the semver bump type of the upstream `govuk-frontend` package:
+
+| govuk-frontend bump | Commit / PR title prefix | Example |
+|---|---|---|
+| **patch** (x.y.**Z**) | `fix:` | `fix: bump govuk-frontend to v6.1.1` |
+| **minor** (x.**Y**.z) | `feat:` | `feat: bump govuk-frontend to v6.1.0` |
+| **major** (**X**.y.z) | `feat!:` | `feat!: bump govuk-frontend to v7.0.0` |
+
+> **Never use `chore:`** for a govuk-frontend version bump — even if no Twig template files change, a minor or major bump indicates new or breaking upstream features that consumers of this package need to know about.
+
 ## Development Workflow
 
 ### Running tests
