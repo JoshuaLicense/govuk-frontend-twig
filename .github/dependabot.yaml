@@ -1,30 +1,61 @@
 version: 2
 updates:
   - package-ecosystem: "composer"
-    directory: "/"
-    versioning-strategy: "increase-if-necessary"
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
+    commit-message:
+      prefix: 'feat: '
+      prefix-development: 'chore: '
+    cooldown:
+      default-days: 3
+      semver-patch-days: 3
+      semver-minor-days: 7
+      semver-major-days: 14
     groups:
-      composer-dependencies:
-        patterns:
-          - "*"
+      composer-development:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      composer-production:
+        dependency-type: production
+        update-types:
+          - patch
 
   - package-ecosystem: "npm"
-    directory: "/"
-    versioning-strategy: "increase-if-necessary"
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
+    commit-message:
+      prefix: 'feat: '
+      prefix-development: 'chore: '
+    cooldown:
+      default-days: 3
+      semver-patch-days: 3
+      semver-minor-days: 7
+      semver-major-days: 14
     groups:
-      npm-dependencies:
-        patterns:
-          - "*"
+      npm-development:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      npm-production:
+        dependency-type: production
+        update-types:
+          - patch
 
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: '/'
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
+    commit-message:
+      prefix: 'ci: '
+    cooldown:
+      default-days: 3
     groups:
-      github-action-dependencies:
-        patterns:
-          - "*"
+      actions-minor:
+        update-types:
+          - minor
+          - patch

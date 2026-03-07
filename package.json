@@ -11,6 +11,9 @@
   },
   "author": "",
   "license": "MIT",
+  "dependencies": {
+    "govuk-frontend": "^6.1.0"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@jest/types": "^30.0.0",
@@ -22,7 +25,6 @@
     "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.0",
-    "govuk-frontend": "^6.1.0",
     "husky": "^9.0.10",
     "is-ci": "^4.1.0",
     "jest": "^30.0.0",
