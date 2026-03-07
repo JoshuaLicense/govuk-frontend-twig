@@ -11,10 +11,6 @@ jobs:
     name: Auto Merge
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
-    outputs:
-      dependency-type: ${{ steps.metadata.outputs.dependency-type }}
-      update-type: ${{ steps.metadata.outputs.update-type }}
-      package-ecosystem: ${{ steps.metadata.outputs.package-ecosystem }}
     permissions:
       contents: write
       pull-requests: write
