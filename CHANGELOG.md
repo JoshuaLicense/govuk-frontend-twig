@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.0.0...v6.1.0) (2026-03-07)
+
+
+### Features
+
+* bump govuk-frontend to v6.1.0 ([#218](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/218)) ([1ad791e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/1ad791e623717a727ae20a8cb6380afdedf35e59))
+
 ## [6.0.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v5.14.0...v6.0.0) (2026-02-18)
 
 
