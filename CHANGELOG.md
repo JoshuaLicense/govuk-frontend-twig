@@ -1,5 +1,25 @@
 # Changelog
 
+## [6.2.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.1.0...v6.2.0) (2026-04-26)
+
+
+### Features
+
+* bump picomatch ([#226](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/226)) ([30f8f85](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/30f8f85d2ecd915e64cbafd5525db883495126ac))
+
+
+### Miscellaneous Chores
+
+* bump eslint from 10.2.0 to 10.2.1 in the npm-development group ([#233](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/233)) ([7eb209b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/7eb209b183ea18f97df03e9f42a8d5b6d5791a53))
+* bump flatted from 3.3.4 to 3.4.2 ([#224](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/224)) ([cf56967](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/cf56967a3b340842dd609a76345eaa1006cdf235))
+* bump handlebars from 4.7.8 to 4.7.9 ([#227](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/227)) ([a6f10ce](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/a6f10ce204bd9a2a8fad2cea6025a501ad29863e))
+* bump lint-staged in the npm-development group ([#222](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/222)) ([4c82b39](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/4c82b396456df5a4a0b6c7fac29245b1eb044ae0))
+* bump the npm-development group with 2 updates ([#232](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/232)) ([fc82f7b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/fc82f7b0ed4e989a4b392aea3ee7bf17e3b2d790))
+* bump the npm-development group with 3 updates ([#228](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/228)) ([718afa9](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/718afa9c129f9d6540c99c28ab44c2d655b67b12))
+* bump the npm-development group with 3 updates ([#230](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/230)) ([198333b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/198333b334b117561e654619f56e62b7e059a4d0))
+* bump the npm-development group with 4 updates ([#223](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/223)) ([281822e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/281822e6c61fac33c3ecb767d63daf0f40d9298f))
+* bump typescript from 5.9.3 to 6.0.2 ([#231](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/231)) ([4aaf7c9](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/4aaf7c96e07149ac15f00683799670dfd678000d))
+
 ## [6.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.0.0...v6.1.0) (2026-03-07)
 
 
