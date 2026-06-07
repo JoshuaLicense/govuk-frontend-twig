@@ -47,7 +47,7 @@
 {% endif %}
 {% if params.javascript | default(false) %}
   <div
-    class="govuk-drop-zone"
+    class="govuk-file-upload-wrapper {%- if params.wrapperClasses | default(false) %} {{ params.wrapperClasses }}{% endif %}"
     data-module="govuk-file-upload"
     {{- govukI18nAttributes({
       key: 'choose-files-button',
@@ -72,7 +72,8 @@
     {{- govukI18nAttributes({
       key: 'left-drop-zone',
       message: params.leftDropZoneText | default(null)
-    }) -}}
+    }) }}
+    {{- govukAttributes(params.wrapperAttributes ?? []) }}
   >
 {% endif %}
   <input class="govuk-file-upload {%- if params.classes | default(false) %} {{ params.classes }}{% endif %} {%- if params.errorMessage | default(false) %} govuk-file-upload--error{% endif %}" id="{{ id }}" name="{{ params.name }}" type="file"
