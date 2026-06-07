@@ -1,5 +1,33 @@
 # Changelog
 
+## [6.2.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.1.0...v6.2.0) (2026-06-07)
+
+
+### Features
+
+* bump picomatch ([#226](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/226)) ([30f8f85](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/30f8f85d2ecd915e64cbafd5525db883495126ac))
+* update GOV.UK Frontend version to v6.2.0 ([#249](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/249)) ([c3b3d1e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/c3b3d1efa382bf6d5d5afd979677de259d5f6e8a))
+
+
+### Miscellaneous Chores
+
+* bump eslint from 10.2.0 to 10.2.1 in the npm-development group ([#233](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/233)) ([7eb209b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/7eb209b183ea18f97df03e9f42a8d5b6d5791a53))
+* bump flatted from 3.3.4 to 3.4.2 ([#224](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/224)) ([cf56967](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/cf56967a3b340842dd609a76345eaa1006cdf235))
+* bump handlebars from 4.7.8 to 4.7.9 ([#227](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/227)) ([a6f10ce](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/a6f10ce204bd9a2a8fad2cea6025a501ad29863e))
+* bump lint-staged from 16.4.0 to 17.0.3 ([#243](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/243)) ([1eb309e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/1eb309e115e9fef6117b73e62960e1e58b2dadb9))
+* bump lint-staged in the npm-development group ([#222](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/222)) ([4c82b39](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/4c82b396456df5a4a0b6c7fac29245b1eb044ae0))
+* bump the npm-development group with 2 updates ([#232](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/232)) ([fc82f7b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/fc82f7b0ed4e989a4b392aea3ee7bf17e3b2d790))
+* bump the npm-development group with 2 updates ([#236](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/236)) ([26dccee](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/26dcceebef86d6b7d839267a16c249b5ff75dda1))
+* bump the npm-development group with 2 updates ([#238](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/238)) ([d59fd00](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/d59fd0051855a3ab10a1ecaa5105190f937be20e))
+* bump the npm-development group with 2 updates ([#245](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/245)) ([e607383](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/e6073830e4fa21dac4f3580642bce35d573605eb))
+* bump the npm-development group with 3 updates ([#228](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/228)) ([718afa9](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/718afa9c129f9d6540c99c28ab44c2d655b67b12))
+* bump the npm-development group with 3 updates ([#230](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/230)) ([198333b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/198333b334b117561e654619f56e62b7e059a4d0))
+* bump the npm-development group with 3 updates ([#240](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/240)) ([3b4a78b](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/3b4a78b4841d399bb208c9232f38ac6a2378cab9))
+* bump the npm-development group with 3 updates ([#242](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/242)) ([618bcbb](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/618bcbbf308c8d4dcb64b9c4fac6300eb0c2d179))
+* bump the npm-development group with 4 updates ([#223](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/223)) ([281822e](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/281822e6c61fac33c3ecb767d63daf0f40d9298f))
+* bump the npm-development group with 4 updates ([#247](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/247)) ([c62818a](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/c62818a1184d7ef42b4a829aa6211e214f19ad87))
+* bump typescript from 5.9.3 to 6.0.2 ([#231](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/231)) ([4aaf7c9](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/4aaf7c96e07149ac15f00683799670dfd678000d))
+
 ## [6.1.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.0.0...v6.1.0) (2026-03-07)
 
 
