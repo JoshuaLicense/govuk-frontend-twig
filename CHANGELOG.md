@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.2.1](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.2.0...v6.2.1) (2026-07-19)
+
+
+### Miscellaneous Chores
+
+* bump the npm-development group with 2 updates ([#250](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/250)) ([60f725d](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/60f725d2ae75cc5affc9d631a56050d134f231a6))
+* bump the npm-development group with 2 updates ([#252](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/252)) ([0ec6b89](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/0ec6b899e3f75c47e33eb3bcb9848b90c4eae736))
+* bump the npm-development group with 2 updates ([#257](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/257)) ([553fb97](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/553fb97ed2628473201d0e9c66eabef90cb9b7b1))
+* bump the npm-development group with 3 updates ([#259](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/259)) ([22613be](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/22613bef4dd166adae8f8cba5b3cbd15c0a5f710))
+* bump the npm-development group with 4 updates ([#255](https://github.com/JoshuaLicense/govuk-frontend-twig/issues/255)) ([eb7bcb1](https://github.com/JoshuaLicense/govuk-frontend-twig/commit/eb7bcb18269883bc9f2c8c7db6e69a0af7f996e3))
+
 ## [6.2.0](https://github.com/JoshuaLicense/govuk-frontend-twig/compare/v6.1.0...v6.2.0) (2026-06-07)
 
 
